@@ -8,6 +8,8 @@
 <meta property="og:title" content="도쿄 11월 여행 비교판">
 <meta property="og:description" content="인천⇄도쿄 11/27~11/30 항공권·호텔 최저가 비교, 매일 갱신">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#E9EEE7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111713" media="(prefers-color-scheme: dark)">
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -132,6 +134,65 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
 .airlines{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:0;list-style:none;font-size:14px}
 .airlines li span{color:var(--muted);font-size:13px;margin-left:4px}
 .foot{margin-top:48px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+/* ── 휴대폰 ── */
+@media (max-width:600px){
+  body{font-size:15px;padding-block:16px 40px}
+  .ticket-top{padding:9px 14px;font-size:12px;letter-spacing:.06em}
+  .leg{padding:18px 14px 16px}
+  .route{gap:10px}
+  .route .port b{font-size:40px}
+  .fare{padding:18px 14px 16px}
+  .fare .big{font-size:40px}
+  .stamp{width:54px;height:54px;font-size:14px;right:12px;top:12px}
+  .sec{margin-top:34px}
+  .sec-head{border-bottom-width:2.5px}
+  .sec-head h2{font-size:24px}
+  .rulers{gap:30px}
+  .scale{margin-inline:16px}
+
+  /* 표를 한 줄씩 쌓는다 */
+  .tt-scroll{overflow:visible;margin-inline:0}
+  table.tt{min-width:0}
+  .tt thead{display:none}
+  .tt tbody{display:block}
+  .tt tr{display:grid;grid-template-columns:1fr auto;column-gap:12px;row-gap:3px;padding:13px 0;border-bottom:1px solid var(--line)}
+  .tt td{border:0;padding:0;display:block}
+  .tt .price{font-size:18px}
+
+  #flight-table td.site{grid-column:1;grid-row:1;font-size:16px}
+  #flight-table td.price{grid-column:2;grid-row:1;text-align:right}
+  #flight-table td.o{grid-column:1/-1;grid-row:2;font-size:14px}
+  #flight-table td.rt{grid-column:1/-1;grid-row:3;font-size:14px}
+  #flight-table td.o::before,#flight-table td.rt::before{display:inline-block;width:52px;color:var(--muted);font-size:12px}
+  #flight-table td.o::before{content:"가는 편"}
+  #flight-table td.rt::before{content:"오는 편"}
+  #flight-table td.lnk{grid-column:1/-1;grid-row:4;text-align:left;margin-top:4px}
+  #flight-table .go{display:inline-block;padding:4px 0;font-size:14px}
+
+  .hotels td.hn{grid-column:1/-1;grid-row:1;font-weight:700;font-size:15px}
+  .hotels td.hr{grid-column:1;grid-row:2;font-size:13px;color:var(--muted);align-self:end}
+  .hotels td.hr::before{content:"평점 "}
+  .hotels td.p1{grid-column:2;grid-row:2;text-align:right}
+  .hotels td.p1::after{content:" /1박";font-family:var(--body);font-size:12px;color:var(--muted)}
+  .hotels td.p3{grid-column:2;grid-row:3;text-align:right;font-size:13px;color:var(--muted)}
+  .hotels td.p3::before{content:"3박 ";font-family:var(--body);font-size:12px}
+  .tt tr.best td.p3{color:var(--red)}
+  .hotels td:first-child{min-width:0}
+
+  .area{padding:16px 0 18px}
+  .area-top{grid-template-columns:1fr auto;gap:2px 12px}
+  .area-top h3{font-size:22px}
+  .area-top .tag{display:inline-block;margin:6px 10px 0 0;font-size:12px}
+  .area-top h3{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:0}
+  .area-top h3 .tag:first-of-type{margin-left:0}
+  .area-top h3::after{content:none}
+  .mins b{font-size:34px}
+  .area .more{display:block;padding:8px 0 2px;font-size:14px}
+  .airlines{flex-direction:column;gap:0}
+  .airlines li{padding:9px 0;border-bottom:1px solid var(--line)}
+  .notes{font-size:14px}
+  .foot{flex-direction:column;gap:4px}
+}
 @media (prefers-reduced-motion:no-preference){.stamp{transition:transform .2s}.stamp:hover{transform:rotate(-4deg)}}
 </style>
 
@@ -518,8 +579,8 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
   const tb = document.querySelector('#flight-table tbody');
   flights.forEach((f, i) => {
     const tr = el('tr', i === 0 ? 'best' : '');
-    tr.append(el('td', 'site', f.site), el('td', '', f.out || '—'), el('td', '', f.ret || '—'), el('td', 'r price', won(f.price)));
-    const td = el('td', 'r'); const a = el('a', 'go', '열기 →'); a.href = f.url; td.appendChild(a); tr.appendChild(td);
+    tr.append(el('td', 'site', f.site), el('td', 'o', f.out || '—'), el('td', 'rt', f.ret || '—'), el('td', 'r price', won(f.price)));
+    const td = el('td', 'r lnk'); const a = el('a', 'go', '열기 →'); a.href = f.url; td.appendChild(a); tr.appendChild(td);
     tb.appendChild(tr);
   });
   if(data.updatedAt) document.getElementById('flight-sub').textContent = fmt(data.updatedAt) + ' 조회';
@@ -546,10 +607,10 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
       const b = el('tbody');
       a.hotels.forEach((h, i) => {
         const tr = el('tr', cheapest === a && i === 0 ? 'best' : '');
-        const name = el('td', '', h.name);
+        const name = el('td', 'hn', h.name);
         if(h.greatLocation) name.appendChild(el('span', 'loc', '위치 좋음'));
         const reviews = h.reviews >= 1000 ? (h.reviews / 1000).toFixed(1).replace(/\.0$/, '') + '천' : String(h.reviews || '');
-        tr.append(name, el('td', '', h.rating.toFixed(1) + (reviews ? ' · ' + reviews : '')), el('td', 'r price', won(h.price)), el('td', 'r price', won(h.price * 3)));
+        tr.append(name, el('td', 'hr', h.rating.toFixed(1) + (reviews ? ' · ' + reviews : '')), el('td', 'r price p1', won(h.price)), el('td', 'r price p3', won(h.price * 3)));
         b.appendChild(tr);
       });
       t.appendChild(b); wrap.appendChild(t); art.appendChild(wrap);
