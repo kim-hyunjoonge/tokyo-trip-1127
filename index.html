@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>도쿄 11월 여행 비교판</title>
+<meta name="description" content="인천⇄도쿄 11/27~11/30 항공권 사이트별 최저가와 호텔 지역별 가격을 매일 모아 보여 줘요.">
+<meta property="og:title" content="도쿄 11월 여행 비교판">
+<meta property="og:description" content="인천⇄도쿄 11/27~11/30 항공권·호텔 최저가 비교, 매일 갱신">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=DotGothic16&family=Gothic+A1:wght@400;500;700;800&display=swap">
+<style>
+:root{
+  --ground:#E9EEE7; --paper:#F7F9F5; --ink:#1B2A21; --muted:#5C6C61; --line:#C3CEC2; --rule:#1B2A21;
+  --green:#2E6A48; --green-faint:rgba(46,106,72,.08); --red:#C9362A; --red-faint:rgba(201,54,42,.1);
+  --body:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --head:"Do Hyeon","Gothic A1","Malgun Gothic",sans-serif;
+  --dot:"DotGothic16","Gothic A1",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#111713; --paper:#18201B; --ink:#E3EAE2; --muted:#98A79C; --line:#2F3B33; --rule:#E3EAE2;
+    --green:#7DBB95; --green-faint:rgba(125,187,149,.08); --red:#FF7B69; --red-faint:rgba(255,123,105,.12);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#111713; --paper:#18201B; --ink:#E3EAE2; --muted:#98A79C; --line:#2F3B33; --rule:#E3EAE2;
+  --green:#7DBB95; --green-faint:rgba(125,187,149,.08); --red:#FF7B69; --red-faint:rgba(255,123,105,.12);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.65;padding-inline:16px;padding-block:28px 56px}
+.wrap{max-width:860px;margin:0 auto}
+a{color:inherit;text-decoration-color:var(--green);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--green)}
+a:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.dot{font-family:var(--dot);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+h1,h2,h3{font-family:var(--head);font-weight:400;margin:0;line-height:1.2;text-wrap:balance}
+
+/* ── ticket ── */
+.ticket{position:relative;background:var(--paper);border:1.5px solid var(--green);padding:0;overflow:hidden}
+.ticket::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(135deg,var(--green-faint) 0 2px,transparent 2px 7px)}
+.ticket-top{position:relative;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:10px 18px;border-bottom:1.5px solid var(--green);color:var(--green);font-size:13px;font-weight:700;letter-spacing:.12em}
+.ticket-body{position:relative;display:grid;grid-template-columns:1.4fr 1fr;gap:0}
+.leg{padding:22px 18px 20px;display:flex;flex-direction:column;gap:14px}
+.route{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.route .port{display:flex;flex-direction:column}
+.route .port b{font-family:var(--dot);font-weight:400;font-size:52px;line-height:1}
+.route .port span{font-size:13px;color:var(--muted);margin-top:4px}
+.route .arrow{font-family:var(--dot);font-size:26px;color:var(--green)}
+.when{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;font-size:14px}
+.when dt{color:var(--muted)}
+.when dd{margin:0;font-weight:700}
+.fare{border-left:1.5px dashed var(--green);padding:22px 18px 20px;display:flex;flex-direction:column;gap:8px;position:relative}
+.fare .cap{font-size:13px;color:var(--muted)}
+.fare .big{font-family:var(--dot);font-size:44px;line-height:1}
+.fare .big small{font-family:var(--body);font-size:18px;font-weight:700;margin-left:2px}
+.fare dl{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin:4px 0 0;font-size:14px}
+.fare dt{color:var(--muted)}
+.fare dd{margin:0;font-family:var(--dot)}
+.fare .note{font-size:12px;color:var(--muted)}
+.stamp{position:absolute;right:16px;top:14px;width:64px;height:64px;border:2.5px solid var(--red);border-radius:50%;color:var(--red);display:grid;place-items:center;font-family:var(--head);font-size:17px;line-height:1.05;text-align:center;transform:rotate(-14deg);opacity:.85}
+@media (max-width:640px){
+  .ticket-body{grid-template-columns:1fr}
+  .fare{border-left:0;border-top:1.5px dashed var(--green)}
+  .route .port b{font-size:42px}
+}
+
+/* ── sections ── */
+.sec{margin-top:44px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:3px solid var(--rule);padding-bottom:6px;margin-bottom:14px}
+.sec-head h2{font-size:28px}
+.sec-head .when-checked{font-size:12px;color:var(--muted)}
+.lead{max-width:62ch;margin:0 0 16px}
+.small{font-size:13px;color:var(--muted)}
+
+/* ── rulers ── */
+.rulers{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:640px){.rulers{grid-template-columns:1fr}}
+.ruler h3{font-size:19px;margin-bottom:12px}
+.scale{position:relative;height:58px;margin-inline:10px}
+.scale .track{position:absolute;left:0;right:0;top:22px;height:10px;display:flex}
+.scale .track i{display:block;height:100%}
+.scale .z1{background:var(--green)} .scale .z2{background:var(--line)} .scale .z3{background:var(--red);opacity:.55}
+.scale .tick{position:absolute;top:34px;transform:translateX(-50%);font-family:var(--dot);font-size:12px;color:var(--muted)}
+.scale .tick::before{content:"";position:absolute;left:50%;top:-4px;width:1px;height:4px;background:var(--muted)}
+.scale .pin{position:absolute;top:0;transform:translateX(-50%);font-family:var(--dot);font-size:13px;color:var(--red);white-space:nowrap}
+.scale .pin::after{content:"";position:absolute;left:50%;top:17px;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--red)}
+.key{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin-top:4px}
+.key span::before{content:"";display:inline-block;width:14px;height:6px;margin-right:6px;vertical-align:2px}
+.key .k1::before{background:var(--green)} .key .k2::before{background:var(--line)} .key .k3::before{background:var(--red);opacity:.55}
+.ruler p{margin:10px 0 0;font-size:13px;color:var(--muted);max-width:52ch}
+
+/* ── timetable ── */
+.tt-scroll{overflow-x:auto;margin-inline:-2px}
+table.tt{width:100%;border-collapse:collapse;min-width:520px}
+.tt th{font-size:12px;font-weight:500;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--ink)}
+.tt td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:baseline}
+.tt .r{text-align:right}
+.tt .price{font-family:var(--dot);font-size:17px;white-space:nowrap}
+.tt tr.best .price{color:var(--red)}
+.tt tr.best td:first-child::before{content:"最";display:inline-grid;place-items:center;width:20px;height:20px;margin-right:8px;border:1.5px solid var(--red);border-radius:50%;color:var(--red);font-size:11px;font-weight:700;vertical-align:1px}
+.tt .site{font-weight:700;white-space:nowrap}
+.tt .go{font-size:13px;white-space:nowrap}
+.notes{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;max-width:66ch;font-size:14px}
+.notes li{padding-left:16px;position:relative}
+.notes li::before{content:"─";position:absolute;left:0;color:var(--green)}
+
+/* ── areas ── */
+.area{padding:18px 0 20px;border-bottom:1px solid var(--ink)}
+.area:first-child{padding-top:4px}
+.area-top{display:grid;grid-template-columns:1fr auto;gap:4px 18px;align-items:end}
+.area-top h3{font-size:24px}
+.area-top .tag{font-size:13px;font-weight:700;color:var(--green);margin-left:8px;font-family:var(--body)}
+.area-top .tag.warn{color:var(--red)}
+.area-top .tag.cheap{color:var(--red)}
+.mins{text-align:right;line-height:1}
+.mins b{font-family:var(--dot);font-weight:400;font-size:40px}
+.mins span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.area p{margin:8px 0 10px;max-width:64ch;font-size:14px}
+.hotels td:first-child{min-width:190px}
+.hotels .loc{font-size:12px;color:var(--green);margin-left:6px;white-space:nowrap}
+.area .more{font-size:13px;display:inline-block;margin-top:10px}
+
+.airlines{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:0;list-style:none;font-size:14px}
+.airlines li span{color:var(--muted);font-size:13px;margin-left:4px}
+.foot{margin-top:48px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){.stamp{transition:transform .2s}.stamp:hover{transform:rotate(-4deg)}}
+</style>
+
+<script id="trip-data" type="application/json">
+{
+  "updatedAt": "2026-09-24 00:50",
+  "flightHistory": [
+    {
+      "date": "2026-09-24",
+      "minPrice": 292994,
+      "source": "카약"
+    }
+  ],
+  "flights": [
+    {
+      "site": "카약",
+      "price": 292994,
+      "out": "에어서울 16:40→19:00 NRT",
+      "ret": "ZIPAIR 10:55→13:35",
+      "url": "https://www.kayak.co.kr/flights/ICN-TYO/2026-11-27/2026-11-30?sort=price_a"
+    },
+    {
+      "site": "스카이스캐너",
+      "price": 296600,
+      "out": "에어부산 07:35→10:15 NRT",
+      "ret": "파라타항공 15:05→18:00",
+      "url": "https://www.skyscanner.co.kr/transport/flights/icn/tyoa/261127/261130/?adultsv2=1&cabinclass=economy&rtn=1&sortby=cheapest"
+    },
+    {
+      "site": "Google 항공편",
+      "price": 300138,
+      "out": "에어서울 16:40→19:00 NRT",
+      "ret": "ZIPAIR 10:55→13:35",
+      "url": "https://www.google.com/travel/flights?q=Flights%20from%20ICN%20to%20TYO%20on%202026-11-27%20through%202026-11-30&curr=KRW&hl=ko&gl=KR"
+    },
+    {
+      "site": "트립닷컴",
+      "price": 309500,
+      "out": "에어부산 07:35→10:15 NRT",
+      "ret": "",
+      "url": "https://kr.trip.com/flights/showfarefirst?dcity=sel&acity=tyo&ddate=2026-11-27&rdate=2026-11-30&triptype=rt&class=y&quantity=1&searchboxarg=t&nonstoponly=off&locale=ko-KR&curr=KRW"
+    }
+  ],
+  "hotelCheckedAt": "2026-09-24 01:05",
+  "areas": [
+    {
+      "id": "ueno",
+      "name": "우에노 · 오카치마치",
+      "from": "나리타 ⇄ 스카이라이너 직행 약 40~45분",
+      "tag": "ok",
+      "tagText": "추천",
+      "desc": "공항 오가기가 가장 편하고, 아메요코 시장·우에노 공원이 걸어서 가까워요. 아키하바라까지 한 정거장이에요. 이번 일정에 가장 잘 맞아요.",
+      "url": "https://www.google.com/travel/search?q=%EC%9A%B0%EC%97%90%EB%85%B8%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYGxIHCOoPEAsYHhgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW",
+      "hotels": [
+        {
+          "name": "케이큐 EX 인 아키하바라",
+          "price": 136267,
+          "rating": 4.2,
+          "reviews": 897,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "아파 호텔 우에노 히로코지",
+          "price": 147761,
+          "rating": 4.3,
+          "reviews": 660,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "도세이 호텔 코코네 우에노",
+          "price": 160328,
+          "rating": 4.2,
+          "reviews": 699,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "APA Hotel Ueno Ekimae",
+          "price": 171400,
+          "rating": 4.1,
+          "reviews": 2000,
+          "star": 3,
+          "greatLocation": false
+        }
+      ],
+      "mins": 42,
+      "line": "스카이라이너 직행"
+    },
+    {
+      "id": "nippori",
+      "name": "닛포리",
+      "from": "나리타 ⇄ 스카이라이너 직행 약 35~40분",
+      "tag": "ok",
+      "tagText": "추천 · 공항 제일 빠름",
+      "desc": "스카이라이너가 서는 역이라 공항까지 제일 빨라요. 조용한 동네이고 우에노까지 전철로 5분이에요. 잠만 잘 거면 좋아요.",
+      "url": "https://www.google.com/travel/search?q=%EB%8B%9B%ED%8F%AC%EB%A6%AC%EC%97%AD%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYGxIHCOoPEAsYHhgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW",
+      "hotels": [
+        {
+          "name": "Randor Residence Tokyo Classic",
+          "price": 148933,
+          "rating": 4.0,
+          "reviews": 160,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "APA 호텔 TKP 닛포리 에키마에",
+          "price": 153561,
+          "rating": 4.0,
+          "reviews": 2200,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "알몬트 호텔 닛포리",
+          "price": 196981,
+          "rating": 4.5,
+          "reviews": 899,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "The Barn Tokyo",
+          "price": 216127,
+          "rating": 4.8,
+          "reviews": 224,
+          "star": 3,
+          "greatLocation": false
+        }
+      ],
+      "mins": 37,
+      "line": "스카이라이너 직행"
+    },
+    {
+      "id": "asakusa",
+      "name": "아사쿠사",
+      "from": "나리타 ⇄ 게이세이·아사쿠사선 직통 약 1시간",
+      "tag": "",
+      "tagText": "",
+      "desc": "센소지·가미나리몬 바로 앞이라 관광 동선이 좋아요. 공항은 갈아타지 않고 가지만 스카이라이너보다 20분쯤 더 걸려요.",
+      "url": "https://www.google.com/travel/search?q=%EC%95%84%EC%82%AC%EC%BF%A0%EC%82%AC%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYGxIHCOoPEAsYHhgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW",
+      "hotels": [
+        {
+          "name": "호텔 게이한 아사쿠사",
+          "price": 143068,
+          "rating": 4.0,
+          "reviews": 1500,
+          "star": 3,
+          "greatLocation": true
+        },
+        {
+          "name": "APA Hotel Asakusa Tawaramachi-Ekimae",
+          "price": 151120,
+          "rating": 4.1,
+          "reviews": 4500,
+          "star": 3,
+          "greatLocation": true
+        },
+        {
+          "name": "Agora Place Tokyo Asakusa",
+          "price": 151211,
+          "rating": 4.0,
+          "reviews": 1500,
+          "star": 3,
+          "greatLocation": true
+        },
+        {
+          "name": "호텔 선루트 아사쿠사",
+          "price": 160310,
+          "rating": 4.1,
+          "reviews": 1200,
+          "star": 3,
+          "greatLocation": true
+        }
+      ],
+      "mins": 60,
+      "line": "게이세이·아사쿠사선 직통"
+    },
+    {
+      "id": "ginza",
+      "name": "긴자 · 히가시긴자",
+      "from": "나리타 ⇄ 게이세이·아사쿠사선 직통 약 1시간 10분",
+      "tag": "",
+      "tagText": "",
+      "desc": "쇼핑·맛집이 많고 도쿄역·츠키지와 가까워요. 히가시긴자역 쪽이면 공항 직통열차가 서요.",
+      "url": "https://www.google.com/travel/search?q=%EA%B8%B4%EC%9E%90%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYGxIHCOoPEAsYHhgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW",
+      "hotels": [
+        {
+          "name": "Keikyu EX In Higashiginza",
+          "price": 136862,
+          "rating": 4.1,
+          "reviews": 840,
+          "star": 3,
+          "greatLocation": true
+        },
+        {
+          "name": "헨 나 호텔 도쿄 긴자",
+          "price": 145789,
+          "rating": 4.1,
+          "reviews": 957,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "소테츠 프레사 인 심바시 히비야구치",
+          "price": 169003,
+          "rating": 4.0,
+          "reviews": 1300,
+          "star": 3,
+          "greatLocation": true
+        },
+        {
+          "name": "소테츠 프레사 인 긴자 나나초메",
+          "price": 175202,
+          "rating": 4.1,
+          "reviews": 1600,
+          "star": 3,
+          "greatLocation": false
+        }
+      ],
+      "mins": 70,
+      "line": "게이세이·아사쿠사선 직통"
+    },
+    {
+      "id": "shinjuku",
+      "name": "신주쿠",
+      "from": "나리타 ⇄ 나리타 익스프레스 약 1시간 20분",
+      "tag": "warn",
+      "tagText": "공항 멀어요",
+      "desc": "밤늦게까지 번화하고 쇼핑하기 좋지만, 이번 일정에선 공항이 가장 멀어요. 월요일 오전 10:55 비행기라면 7시 전에 나와야 해요.",
+      "url": "https://www.google.com/travel/search?q=%EC%8B%A0%EC%A3%BC%EC%BF%A0%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYGxIHCOoPEAsYHhgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW",
+      "hotels": [
+        {
+          "name": "도큐스테이 아오야마 프리미어",
+          "price": 157153,
+          "rating": 4.3,
+          "reviews": 916,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "APA 호텔 & 리조트 니시신주쿠-고초메-에키 타워",
+          "price": 169772,
+          "rating": 4.1,
+          "reviews": 3400,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "니시테츠 인 신주쿠",
+          "price": 178027,
+          "rating": 4.1,
+          "reviews": 1300,
+          "star": 3,
+          "greatLocation": false
+        },
+        {
+          "name": "도큐스테이 이케부쿠로",
+          "price": 183208,
+          "rating": 4.2,
+          "reviews": 944,
+          "star": 3,
+          "greatLocation": true
+        }
+      ],
+      "mins": 80,
+      "line": "나리타 익스프레스"
+    }
+  ]
+}
+</script>
+
+<div class="wrap">
+  <section class="ticket" aria-label="여정 요약">
+    <div class="ticket-top"><span>항공권 + 숙박 3박 · 성인 1명</span><span id="stamp-date">9월 24일 조회</span></div>
+    <div class="ticket-body">
+      <div class="leg">
+        <div class="route">
+          <div class="port"><b>ICN</b><span>인천</span></div>
+          <div class="arrow" aria-hidden="true">⇄</div>
+          <div class="port"><b>NRT</b><span>도쿄 나리타</span></div>
+        </div>
+        <dl class="when">
+          <dt>가는 날</dt><dd>11월 27일 금요일</dd>
+          <dt>오는 날</dt><dd>11월 30일 월요일</dd>
+          <dt>숙박</dt><dd>3박</dd>
+        </dl>
+      </div>
+      <div class="fare">
+        <div class="stamp" aria-hidden="true">최저<br>조합</div>
+        <span class="cap">제일 싸게 가면</span>
+        <span class="big" id="total">70<small>만 원</small></span>
+        <dl>
+          <dt>항공 왕복</dt><dd id="t-flight">₩292,994</dd>
+          <dt>호텔 3박</dt><dd id="t-hotel">₩408,801</dd>
+        </dl>
+        <span class="note">시내 교통·식비 제외 · 호텔은 3성급·평점 4.0 이상 중 최저</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-cheap">
+    <div class="sec-head"><h2 id="h-cheap">얼마면 싼 걸까</h2><span class="when-checked">이 날짜 실제 조회 가격 기준</span></div>
+    <div class="rulers">
+      <div class="ruler">
+        <h3>항공권 왕복</h3>
+        <div class="scale" aria-hidden="true">
+          <div class="track"><i class="z1" style="width:25%"></i><i class="z2" style="width:37.5%"></i><i class="z3" style="width:37.5%"></i></div>
+          <span class="pin" id="mk-flight" style="left:16%">지금 29.3</span>
+          <span class="tick" style="left:0">28만</span><span class="tick" style="left:25%">30만</span><span class="tick" style="left:62.5%">33만</span><span class="tick" style="left:100%">36만</span>
+        </div>
+        <div class="key"><span class="k1">30만 이하 싸요</span><span class="k2">30~33만 보통</span><span class="k3">33만 넘으면 비싸요</span></div>
+        <p>직항 대부분이 30~35만 원이에요. Google은 지금 가격을 「저렴」으로 보고, 카약은 50일 안에 약 8만 원 오를 것으로 예측했어요.</p>
+      </div>
+      <div class="ruler">
+        <h3>호텔 1박 · 평점 4.0 이상</h3>
+        <div class="scale" aria-hidden="true">
+          <div class="track"><i class="z1" style="width:33.34%"></i><i class="z2" style="width:33.33%"></i><i class="z3" style="width:33.33%"></i></div>
+          <span class="pin" id="mk-hotel" style="left:30%">최저 13.6</span>
+          <span class="tick" style="left:0">10만</span><span class="tick" style="left:33.33%">14만</span><span class="tick" style="left:66.67%">18만</span><span class="tick" style="left:100%">22만</span>
+        </div>
+        <div class="key"><span class="k1">14만 이하 싸요</span><span class="k2">14~18만 보통</span><span class="k3">18만 넘으면 비싸요</span></div>
+        <p>이 주말(금·토, 단풍철)은 평일의 약 3배예요. 같은 우에노 호텔이 9월 평일엔 6만 원대, 이날은 19만 원대였어요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-flight">
+    <div class="sec-head"><h2 id="h-flight">항공권</h2><span class="when-checked" id="flight-sub">9월 24일 조회</span></div>
+    <div class="tt-scroll">
+      <table class="tt" id="flight-table">
+        <thead><tr><th>사이트</th><th>가는 편</th><th>오는 편</th><th class="r">왕복</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <ul class="notes">
+      <li>맨 위 두 곳은 가는 편과 오는 편 항공사가 달라서 <b>표를 두 장 따로 사요.</b> 한쪽이 결항돼도 다른 쪽은 보장받지 못해요.</li>
+      <li>한 항공사로 왕복하면 진에어가 약 30.4만 원이에요(카약). 트립닷컴에선 <b>위탁 수하물 포함</b> 진에어가 31.5만 원이라, 짐을 부치면 이쪽이 실제로 가장 쌀 수 있어요.</li>
+      <li>하네다로 가면 약 10만 원 더 비싸요. 네이버 항공권은 자동 조회가 안 돼서 <a href="https://flight.naver.com/flights/international/ICN-TYO-20261127/TYO-ICN-20261130?adult=1&fareType=Y">직접 확인</a>해 주세요.</li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="h-hotel">
+    <div class="sec-head"><h2 id="h-hotel">어디서 잘까</h2><span class="when-checked" id="hotel-sub">9월 24일 조회</span></div>
+    <p class="lead">가장 싼 비행기는 <b>금요일 밤 7시 나리타 도착, 월요일 오전 10시 55분 나리타 출발</b>이에요. 늦게 들어가고 일찍 나와야 해서 <b>나리타와 한 번에 이어지는 동네</b>가 편해요. 오른쪽 큰 숫자는 나리타 공항까지 걸리는 시간이에요.</p>
+    <div id="areas"></div>
+    <ul class="notes" style="margin-top:18px">
+      <li><b>같은 호텔도 예약 사이트마다 가격이 달라요.</b> 우에노 한 호텔은 3박 기준 아고다가 부킹닷컴보다 약 5.7만 원 쌌어요. Google 호텔에서 호텔을 누르고 「가격」 탭에서 비교해 보세요.</li>
+      <li><b>더 아끼려면</b> 2성급·캡슐형도 있어요. 사쿠라 호텔 닛포리(2성급, 4.2)는 1박 약 11.5만 원, 우에노 그리드 도쿄(4.1)는 약 7.2만 원이었어요. 개인 욕실이 없거나 방이 좁을 수 있어요.</li>
+      <li><b>무료 취소 요금으로 먼저 잡아 두고</b>, 가격이 내려가면 다시 예약하는 방법이 안전해요.</li>
+      <li>목록 기준: 3성급 이상, 평점 4.0 이상, 리뷰 100개 이상인 곳을 1박 가격(세금 포함)이 싼 순서로 지역마다 4곳까지 보여 줘요.</li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="h-air">
+    <div class="sec-head"><h2 id="h-air">항공사 공식 사이트</h2><span class="when-checked">회원 특가·할인 코드는 여기서만</span></div>
+    <ul class="airlines">
+      <li><a href="https://flyairseoul.com">에어서울</a><span>최저가 가는 편</span></li>
+      <li><a href="https://www.zipair.net/ko">ZIPAIR</a><span>최저가 오는 편</span></li>
+      <li><a href="https://www.airbusan.com">에어부산</a><span>아침 7:35</span></li>
+      <li><a href="https://www.jinair.com">진에어</a><span>한 항공사 왕복 최저</span></li>
+      <li><a href="https://www.jejuair.net/ko/main/base/index.do">제주항공</a><span>최저가 달력</span></li>
+      <li><a href="https://www.airpremia.com">에어프레미아</a></li>
+      <li><a href="https://www.flypeach.com/ko">피치항공</a></li>
+    </ul>
+    <p class="small" style="margin-top:10px">공식 사이트는 첫 화면으로 열려요. 날짜를 직접 넣어 주세요. 저비용 항공사 요금엔 보통 부치는 짐이 빠져 있어요.</p>
+  </section>
+
+  <div class="foot"><span>가격은 조회 시점 기준이고 실제 결제 금액과 다를 수 있어요. 예약·결제는 각 사이트에서 직접 해 주세요.</span><span>매일 오전 9시·밤 9시 갱신</span></div>
+</div>
+
+<script>
+(function(){
+  let data = {};
+  try { data = JSON.parse(document.getElementById('trip-data').textContent); } catch(e) {}
+  const won = n => '₩' + Math.round(n).toLocaleString('ko-KR');
+  const fmt = s => { if(!s) return ''; const [d,t] = s.split(' '); const [y,m,dd] = d.split('-'); return (+m) + '월 ' + (+dd) + '일' + (t ? ' ' + t : ''); };
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; };
+
+  // 항공권
+  const flights = (data.flights || []).filter(f => typeof f.price === 'number').sort((a,b) => a.price - b.price);
+  const tb = document.querySelector('#flight-table tbody');
+  flights.forEach((f, i) => {
+    const tr = el('tr', i === 0 ? 'best' : '');
+    tr.append(el('td', 'site', f.site), el('td', '', f.out || '—'), el('td', '', f.ret || '—'), el('td', 'r price', won(f.price)));
+    const td = el('td', 'r'); const a = el('a', 'go', '열기 →'); a.href = f.url; td.appendChild(a); tr.appendChild(td);
+    tb.appendChild(tr);
+  });
+  if(data.updatedAt) document.getElementById('flight-sub').textContent = fmt(data.updatedAt) + ' 조회';
+
+  // 숙소
+  const areas = (data.areas || []).map(a => ({...a, hotels: (a.hotels || []).filter(h => typeof h.price === 'number').sort((x,y) => x.price - y.price)}));
+  const cheapest = areas.filter(a => a.hotels.length).reduce((m, a) => !m || a.hotels[0].price < m.hotels[0].price ? a : m, null);
+  const box = document.getElementById('areas');
+  areas.forEach(a => {
+    const art = el('article', 'area');
+    const top = el('div', 'area-top');
+    const h3 = el('h3', '', a.name);
+    if(a.tagText) h3.appendChild(el('span', 'tag ' + (a.tag === 'warn' ? 'warn' : ''), a.tagText));
+    if(cheapest === a) h3.appendChild(el('span', 'tag cheap', '숙소 제일 쌈'));
+    const mins = el('div', 'mins');
+    mins.appendChild(el('b', '', a.mins ? String(a.mins) : ''));
+    mins.appendChild(el('span', '', (a.mins ? '분 · ' : '') + (a.line || a.from || '')));
+    top.append(h3, mins);
+    art.append(top, el('p', '', a.desc));
+    if(a.hotels.length){
+      const wrap = el('div', 'tt-scroll');
+      const t = el('table', 'tt hotels');
+      t.innerHTML = '<thead><tr><th>숙소</th><th>평점</th><th class="r">1박</th><th class="r">3박</th></tr></thead>';
+      const b = el('tbody');
+      a.hotels.forEach((h, i) => {
+        const tr = el('tr', cheapest === a && i === 0 ? 'best' : '');
+        const name = el('td', '', h.name);
+        if(h.greatLocation) name.appendChild(el('span', 'loc', '위치 좋음'));
+        const reviews = h.reviews >= 1000 ? (h.reviews / 1000).toFixed(1).replace(/\.0$/, '') + '천' : String(h.reviews || '');
+        tr.append(name, el('td', '', h.rating.toFixed(1) + (reviews ? ' · ' + reviews : '')), el('td', 'r price', won(h.price)), el('td', 'r price', won(h.price * 3)));
+        b.appendChild(tr);
+      });
+      t.appendChild(b); wrap.appendChild(t); art.appendChild(wrap);
+    }
+    const more = el('a', 'more', a.name.split(' · ')[0] + ' 숙소 더 보기 (날짜 적용됨) →'); more.href = a.url;
+    art.appendChild(more);
+    box.appendChild(art);
+  });
+  if(data.hotelCheckedAt) document.getElementById('hotel-sub').textContent = fmt(data.hotelCheckedAt) + ' 조회 · 1박 요금(세금 포함)';
+
+  // 요약·눈금
+  const hotelMin = cheapest ? cheapest.hotels[0].price : null;
+  if(hotelMin){
+    const mk = document.getElementById('mk-hotel');
+    mk.style.left = Math.max(3, Math.min(97, (hotelMin - 100000) / 120000 * 100)) + '%';
+    mk.textContent = '최저 ' + (hotelMin / 10000).toFixed(1);
+    document.getElementById('t-hotel').textContent = won(hotelMin * 3);
+  }
+  if(flights.length){
+    const best = flights[0].price;
+    document.getElementById('t-flight').textContent = won(best);
+    const mk = document.getElementById('mk-flight');
+    mk.style.left = Math.max(3, Math.min(97, (best - 280000) / 80000 * 100)) + '%';
+    mk.textContent = '지금 ' + (best / 10000).toFixed(1);
+    if(hotelMin){
+      const t = document.getElementById('total');
+      t.textContent = String(Math.round((best + hotelMin * 3) / 10000));
+      t.appendChild(el('small', '', '만 원'));
+    }
+  }
+  const stampDate = data.updatedAt || data.hotelCheckedAt;
+  if(stampDate) document.getElementById('stamp-date').textContent = fmt(stampDate.split(' ')[0]) + ' 조회';
+})();
+</script>
+
+</body>
+</html>
