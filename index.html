@@ -380,6 +380,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     const h = places.find(p => p.kind === 'hotel' && (p.match || []).includes(hotelName));
     const s = places.find(p => p.name === stationName);
     if(!h || !s) return null;
+    walkMin.label = (s.label || s.name).replace(/\s*\(.*\)/, '');
     const R = 6371000, r = x => x * Math.PI / 180;
     const dLat = r(s.lat - h.lat), dLng = r(s.lng - h.lng);
     const a = Math.sin(dLat / 2) ** 2 + Math.cos(r(h.lat)) * Math.cos(r(s.lat)) * Math.sin(dLng / 2) ** 2;
@@ -434,7 +435,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
           const name = el('td', 'hn', h.name);
           if(h.greatLocation) name.appendChild(el('span', 'loc', '위치 좋음'));
           const wm = walkMin(h.name, t.station);
-          if(wm !== null) name.appendChild(el('span', 'loc', '공항철도역 도보 ' + wm + '분'));
+          if(wm !== null) name.appendChild(el('span', 'loc', walkMin.label + ' 도보 ' + wm + '분'));
           const ml = el('a', 'map', '지도'); ml.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(h.name + ' ' + C.dest.name.split(' ')[0]); name.appendChild(ml);
           const rv = h.reviews >= 1000 ? (h.reviews / 1000).toFixed(1).replace(/\.0$/, '') + '천' : String(h.reviews || '');
           row.append(name, el('td', 'hr', h.rating.toFixed(1) + (rv ? ' · ' + rv : '')), el('td', 'r price p1', won(h.price)), el('td', 'r price p3', won(h.price * nights)));
