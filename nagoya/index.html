@@ -391,9 +391,12 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
 
   // 숙소 목록
   const areas = (D.areas || []).map(a => ({...a}));
+  // 숙소 + 공항 왕복 교통비가 가장 싼 동네. 교통비를 모르는 동네가 하나라도 있으면 숙소값만으로 비교한다.
   function cheapestArea(){
+    const cand = areas.map(a => { const l = hotelList(a).filter(h => typeof h.price === 'number'); return l.length ? { a, p: Math.min(...l.map(h => h.price)), tr: transitCost(a.id) } : null; }).filter(Boolean);
+    const withTransit = cand.length && cand.every(c => c.tr !== null);
     let m = null;
-    areas.forEach(a => { const l = hotelList(a).filter(h => typeof h.price === 'number'); if(l.length){ const p = Math.min(...l.map(h => h.price)); if(!m || p < m.p) m = { a, p }; } });
+    cand.forEach(c => { const cost = hotelPP(c.p) * nights + (withTransit ? c.tr : 0); if(!m || cost < m.cost) m = { ...c, cost, withTransit }; });
     return m;
   }
   function renderAreas(){
@@ -405,7 +408,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
       const top = el('div', 'area-top');
       const h3 = el('h3', '', a.name);
       if(a.tagText) h3.appendChild(el('span', 'tag ' + (a.tag === 'warn' ? 'warn' : ''), a.tagText));
-      if(cm && cm.a === a) h3.appendChild(el('span', 'tag cheap', '숙소 제일 쌈'));
+      if(cm && cm.a === a) h3.appendChild(el('span', 'tag cheap', cm.withTransit ? '교통비까지 제일 쌈' : '숙소 제일 쌈'));
       const t = (K.transit || {})[a.id] || {};
       const mins = typeof t.minutes === 'number' ? t.minutes : a.mins;
       const mb = el('div', 'mins');
@@ -420,7 +423,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
         line.append('이 동네 최저로 묵으면 1인 ');
         line.appendChild(el('b', '', won(hp)));
         line.append(' (숙소 ' + nights + '박' + (state.people === 2 ? ', 2인 1실 반값' : '') + ')');
-        if(tr !== null){ line.append(' + 공항 왕복 교통 '); line.appendChild(el('b', '', won(tr))); }
+        if(tr !== null){ line.append(' + 공항 왕복 교통 '); line.appendChild(el('b', '', won(tr))); line.append(' = '); line.appendChild(el('b', '', won(hp + tr))); }
         else line.append(' · 공항 교통비 확인 중');
         art.appendChild(line);
         const wrap = el('div', 'tt-scroll'); const tbl = el('table', 'tt hotels');
@@ -463,7 +466,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     dl.append(el('dt', 'sum', complete ? '1인 합계' : '1인 합계 (확인된 것만)'), el('dd', 'sum', won(sum)));
     const tot = $('total'); tot.textContent = String(Math.round(sum / 10000)); tot.appendChild(el('small', '', '만 원' + (complete ? '' : '+')));
     $('fare-cap').textContent = '제일 싸게 가면 · 1인' + (state.people === 2 ? ' (둘이 갈 때)' : '');
-    $('fare-note').textContent = '식비·시내 교통 제외 · 숙소는 3성급·평점 4.0 이상 중 최저' + (cm ? ' (' + cm.a.name.split(' · ')[0] + ')' : '') + (fx !== null ? ' · 환율 1엔 ' + fx.toFixed(2) + '원' + (K.fx.asOf ? '(' + fmt(K.fx.asOf) + ')' : '') : '');
+    $('fare-note').textContent = '식비·시내 교통 제외 · 숙소는 3성급·평점 4.0 이상, ' + (cm && cm.withTransit ? '교통비까지 더해 제일 싼 동네' : '제일 싼 동네') + (cm ? '(' + cm.a.name.split(' · ')[0] + ')' : '') + (fx !== null ? ' · 환율 1엔 ' + fx.toFixed(2) + '원' + (K.fx.asOf ? '(' + fmt(K.fx.asOf) + ')' : '') : '');
   }
 
   // 눈금자
