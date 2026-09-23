@@ -85,11 +85,11 @@ h1,h2,h3{font-family:var(--head);font-weight:400;margin:0;line-height:1.2;text-w
 .rulers{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 @media (max-width:640px){.rulers{grid-template-columns:1fr}}
 .ruler h3{font-size:19px;margin-bottom:12px}
-.scale{position:relative;height:58px;margin-inline:10px}
+.scale{position:relative;height:58px;margin-inline:20px}
 .scale .track{position:absolute;left:0;right:0;top:22px;height:10px;display:flex}
 .scale .track i{display:block;height:100%}
 .scale .z1{background:var(--green)} .scale .z2{background:var(--line)} .scale .z3{background:var(--red);opacity:.55}
-.scale .tick{position:absolute;top:34px;transform:translateX(-50%);font-family:var(--dot);font-size:12px;color:var(--muted)}
+.scale .tick{position:absolute;top:34px;transform:translateX(-50%);font-family:var(--dot);font-size:12px;color:var(--muted);white-space:nowrap}
 .scale .tick::before{content:"";position:absolute;left:50%;top:-4px;width:1px;height:4px;background:var(--muted)}
 .scale .pin{position:absolute;top:0;transform:translateX(-50%);font-family:var(--dot);font-size:13px;color:var(--red);white-space:nowrap}
 .scale .pin::after{content:"";position:absolute;left:50%;top:17px;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--red)}
