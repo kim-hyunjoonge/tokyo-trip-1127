@@ -264,11 +264,107 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
 .intro-skip{font-size:12px;color:var(--muted);margin:0}
 @media (prefers-reduced-motion:reduce){.plane-win .cloud,.intro-bar i,.intro-line .dots::after{animation:none}.intro-bar i{width:100%}#intro{transition:none}}
 
+/* ═════ v3 다듬기 ═════ */
+body{padding-block:0 64px;font-size:15.5px}
+main.wrap{padding-top:22px}
+.sec{margin-top:56px;scroll-margin-top:96px}
+.ticket{scroll-margin-top:110px}
+.sec-head h2{font-size:30px;letter-spacing:-.01em}
+.sub-h{font-size:20px;margin:30px 0 8px}
+
+/* 머리글 · 섹션 이동 */
+.masthead{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--line);margin-inline:-16px;padding-inline:16px}
+.mast-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:10px 4px}
+.brand{font-family:var(--head);font-size:19px;text-decoration:none;color:var(--ink)}
+.sibling{display:inline-flex;align-items:baseline;gap:8px;text-decoration:none;font-size:13px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;background:var(--paper)}
+.sibling:hover{border-color:var(--green);color:var(--green)}
+.sibling .sib-total{font-family:var(--dot);font-weight:400;color:var(--ink);font-size:14px}
+.sibling .sib-go{color:var(--green)}
+.secnav-row{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding-bottom:0}
+.secnav-row::-webkit-scrollbar{display:none}
+.secnav a{flex:none;text-decoration:none;color:var(--muted);font-size:14px;font-weight:700;padding:8px 12px 9px;border-bottom:2.5px solid transparent;white-space:nowrap}
+.secnav a:hover{color:var(--ink)}
+.secnav a.on{color:var(--ink);border-bottom-color:var(--red)}
+.secnav a:first-child{padding-left:0}
+
+/* 기차표 절취선 구멍 */
+.ticket-body{isolation:isolate}
+.fare::before,.fare::after{content:"";position:absolute;left:-10px;width:18px;height:18px;border-radius:50%;background:var(--ground);border:1.5px solid var(--green);z-index:2}
+.fare::before{top:-10px;clip-path:inset(50% 0 0 0)}
+.fare::after{bottom:-10px;clip-path:inset(0 0 50% 0)}
+@media (max-width:640px){.fare::before,.fare::after{display:none}}
+
+/* 판정판 — 역 전광판 한 줄 */
+.board{border:1.5px solid var(--ink);background:var(--paper);margin-bottom:26px}
+.board-row{display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:6px 18px;padding:14px 18px;background:var(--ink);color:var(--paper)}
+.board-label{font-size:12px;letter-spacing:.14em;opacity:.7}
+.board-status{font-family:var(--dot);font-weight:400;font-size:26px;letter-spacing:.02em}
+.board-row.go .board-status{color:#7EE0A2}
+.board-row.hold .board-status{color:#F2C766}
+.board-row.wait .board-status{color:#FF9A8A}
+.board-why{font-size:14px;opacity:.85}
+.reasons{list-style:none;margin:0;padding:12px 18px 14px;display:flex;flex-direction:column;gap:7px;font-size:14px}
+.reasons li{position:relative;padding-left:22px}
+.reasons li::before{position:absolute;left:0;top:0;font-weight:800}
+.reasons .r-ok::before{content:"✓";color:var(--green)}
+.reasons .r-mid::before{content:"·";color:var(--muted);font-size:20px;line-height:1}
+.reasons .r-no::before{content:"✕";color:var(--red)}
+@media (max-width:600px){.board-row{grid-template-columns:1fr;gap:2px}.board-status{font-size:24px}}
+
+/* 목표가 표시 */
+.scale .target{position:absolute;top:16px;height:22px;width:0;border-left:2px dashed var(--red);transform:translateX(-1px)}
+.key .k4::before{background:none!important;border-top:2px dashed var(--red);height:0!important;vertical-align:3px}
+
+/* 예약 사이트별 가격 */
+.offers{margin-top:14px;padding:12px 14px;background:var(--paper);border-left:3px solid var(--green)}
+.offers-h{margin:0 0 8px!important;font-size:13px!important;color:var(--muted)}
+.offers-h b{color:var(--ink)}
+.offers-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px}
+.offers-list li{display:flex;gap:8px;align-items:baseline;font-size:14px}
+.offers-list .o-price{font-family:var(--dot);font-size:15px}
+.offers-list li.win .o-site{font-weight:800}
+.offers-list li.win .o-price{color:var(--red)}
+.offers-list li.win::before{content:"最";display:inline-grid;place-items:center;width:18px;height:18px;border:1.5px solid var(--red);border-radius:50%;color:var(--red);font-size:10px;font-weight:700;align-self:center}
+.offers-note{margin:8px 0 0!important;font-size:13px!important;color:var(--green)}
+.area .desc{color:var(--ink)}
+.area .total .sum{color:var(--red)}
+
+/* 일정 */
+.days{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.day{background:var(--paper);border:1px solid var(--line);padding:14px 16px 16px;position:relative}
+.day-h{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:10px}
+.day-n{font-family:var(--dot);font-size:14px;color:var(--paper);background:var(--green);padding:1px 7px}
+.day-h b{font-family:var(--head);font-weight:400;font-size:19px}
+.slots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.slots li{display:grid;grid-template-columns:52px 1fr;gap:8px;font-size:14px;line-height:1.5}
+.slot-t{font-family:var(--dot);color:var(--green);font-size:13px;padding-top:1px}
+.day-note{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+
+/* 준비 */
+.prep{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.prep-g{background:var(--paper);border:1px solid var(--line);padding:14px 16px}
+.prep-g h3{font-size:19px;margin-bottom:8px}
+.prep-big{font-family:var(--dot);font-size:22px;margin:0 0 8px}
+.prep-big small{font-family:var(--body);font-size:13px;color:var(--muted)}
+.checks2{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.checks2 li{display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:start;font-size:14px}
+.checks2 input{width:17px;height:17px;margin:2px 0 0;accent-color:var(--green)}
+.checks2 input:checked + label{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+
+@media (max-width:600px){
+  .masthead{margin-inline:-16px}
+  .brand{font-size:17px}
+  .sibling{font-size:12px;padding:4px 8px}
+  .sibling .sib-label{display:none}
+  .sec{margin-top:44px;scroll-margin-top:90px}
+  .days,.prep{grid-template-columns:1fr}
+}
+
 </style>
 
-<script id="trip-config" type="application/json">{"slug": "nagoya", "path": "nagoya/", "title": "나고야 11월 여행 비교판", "description": "인천⇄나고야 11/21~11/24 항공권 사이트별 최저가와 호텔 지역별 가격을 매일 모아 보여 줘요.", "ogLine": "인천 ↔ 나고야 주부 · 11.21 토 – 11.24 화 · 3박", "ticketTop": "항공권 + 숙박 3박 · 성인 1명", "origin": {"code": "ICN", "name": "인천"}, "dest": {"code": "NGO", "name": "나고야 주부"}, "when": [["가는 날", "11월 21일 토요일"], ["오는 날", "11월 24일 화요일"], ["숙박", "3박"]], "nights": 3, "peopleToggle": false, "scales": {"flight": {"min": 270000, "max": 420000, "cheap": 300000, "normal": 360000, "note": "진에어 왕복이 29~30만 원대로 가장 싸고, 다른 직항은 대부분 33~42만 원이에요. Google은 이 날짜 가격을 「보통」으로 보고, 카약은 50일 안에 약 6.8만 원 오를 것으로 예측했어요(9월 24일)."}, "hotel": {"min": 80000, "max": 170000, "cheap": 110000, "normal": 140000, "note": "11월 23일(월)이 일본 공휴일(근로감사의 날)이라 토·일·월 연휴예요. 평점 4.0 이상 3성급 숙소가 1박 10만 원 안팎부터 있지만, 연휴라 평소보다 비쌀 수 있어요."}}, "flightNotes": ["가장 싼 조합은 <b>진에어 왕복<\/b>이라 표 한 장으로 끝나요. 토요일 오후 3:45 인천 출발, 화요일 저녁 6:30 주부 공항 출발이에요.", "진에어 최저 운임(슈퍼로우)은 위탁 수하물 15kg이 포함된 것으로 알려져 있지만, 공식 사이트로는 확인하지 못했어요(기사 기준). 예약할 때 다시 봐 주세요. 제주항공 최저 운임은 수하물이 없어 15kg이 편도 4만 원이에요.", "네이버 항공권은 자동 조회가 안 돼서 <a href=\"https://flight.naver.com/flights/international/ICN-NGO-20261121/NGO-ICN-20261124?adult=1&fareType=Y\">직접 확인<\/a>해 주세요."], "hotelLead": "가장 싼 비행기는 <b>토요일 오후 5시 30분 주부 공항 도착, 화요일 저녁 6시 30분 출발<\/b>이에요. 마지막 날 오후까지 여유가 있어서 공항 거리보다 <b>놀기 좋은 동네<\/b>를 골라도 괜찮아요. 오른쪽 큰 숫자는 주부 공항까지 걸리는 시간이에요.", "hotelTips": ["공항 교통비는 빠른 <b>뮤스카이(운임 + 뮤티켓 ¥450)<\/b> 기준이에요. 나고야역 ¥1,430·가나야마 ¥1,360·사카에 ¥1,570(편도, 2026년 3월 운임표). 뮤티켓 없이 일반 특급을 타면 ¥450 싸고 10분쯤 더 걸려요.", "토·일·공휴일엔 <b>도니치 에코킷푸(¥620)<\/b>로 시내 지하철·버스를 하루 종일 탈 수 있어요. 11/21~23 모두 쓸 수 있어요(메이테츠 공항선은 제외).", "<b>같은 호텔도 예약 사이트마다 가격이 달라요.<\/b> Google 호텔에서 호텔을 누르고 「가격」 탭에서 사이트별로 비교해 보세요.", "사카에·후시미 목록은 두 동네 검색 결과를 합친 거예요. 두 곳은 지하철로 한 정거장이에요.", "<b>무료 취소 요금으로 먼저 잡아 두고<\/b>, 가격이 내려가면 다시 예약하는 방법이 안전해요."], "airlines": [{"name": "진에어", "url": "https://www.jinair.com", "note": "최저가 왕복"}, {"name": "제주항공", "url": "https://www.jejuair.net/ko/main/base/index.do", "note": "오후 2:50 출발"}, {"name": "아시아나항공", "url": "https://flyasiana.com", "note": "수하물 포함"}, {"name": "대한항공", "url": "https://www.koreanair.com", "note": "수하물 포함"}], "mapCenter": [35.16, 136.905], "mapZoom": 13, "other": {"label": "도쿄 11/27~30 비교판", "href": "../"}}</script>
+<script id="trip-config" type="application/json">{"slug": "nagoya", "path": "nagoya/", "title": "나고야 11월 여행 비교판", "description": "인천⇄나고야 11/21~11/24 항공권 사이트별 최저가와 호텔 지역별 가격을 매일 모아 보여 줘요.", "ogLine": "인천 ↔ 나고야 주부 · 11.21 토 – 11.24 화 · 3박", "ticketTop": "항공권 + 숙박 3박 · 성인 1명", "origin": {"code": "ICN", "name": "인천"}, "dest": {"code": "NGO", "name": "나고야 주부"}, "when": [["가는 날", "11월 21일 토요일"], ["오는 날", "11월 24일 화요일"], ["숙박", "3박"]], "nights": 3, "peopleToggle": false, "scales": {"flight": {"min": 270000, "max": 420000, "cheap": 300000, "normal": 360000, "note": "진에어 왕복이 29~30만 원대로 가장 싸고, 다른 직항은 대부분 33~42만 원이에요. Google은 이 날짜 가격을 「보통」으로 보고, 카약은 50일 안에 약 6.8만 원 오를 것으로 예측했어요(9월 24일)."}, "hotel": {"min": 80000, "max": 170000, "cheap": 110000, "normal": 140000, "note": "11월 23일(월)이 일본 공휴일(근로감사의 날)이라 토·일·월 연휴예요. 평점 4.0 이상 3성급 숙소가 1박 10만 원 안팎부터 있지만, 연휴라 평소보다 비쌀 수 있어요."}}, "flightNotes": ["가장 싼 조합은 <b>진에어 왕복<\/b>이라 표 한 장으로 끝나요. 토요일 오후 3:45 인천 출발, 화요일 저녁 6:30 주부 공항 출발이에요.", "진에어 최저 운임(슈퍼로우)은 위탁 수하물 15kg이 포함된 것으로 알려져 있지만, 공식 사이트로는 확인하지 못했어요(기사 기준). 예약할 때 다시 봐 주세요. 제주항공 최저 운임은 수하물이 없어 15kg이 편도 4만 원이에요.", "네이버 항공권은 자동 조회가 안 돼서 <a href=\"https://flight.naver.com/flights/international/ICN-NGO-20261121/NGO-ICN-20261124?adult=1&fareType=Y\">직접 확인<\/a>해 주세요."], "hotelLead": "가장 싼 비행기는 <b>토요일 오후 5시 30분 주부 공항 도착, 화요일 저녁 6시 30분 출발<\/b>이에요. 마지막 날 오후까지 여유가 있어서 공항 거리보다 <b>놀기 좋은 동네<\/b>를 골라도 괜찮아요. 오른쪽 큰 숫자는 주부 공항까지 걸리는 시간이에요.", "hotelTips": ["공항 교통비는 빠른 <b>뮤스카이(운임 + 뮤티켓 ¥450)<\/b> 기준이에요. 나고야역 ¥1,430·가나야마 ¥1,360·사카에 ¥1,570(편도, 2026년 3월 운임표). 뮤티켓 없이 일반 특급을 타면 ¥450 싸고 10분쯤 더 걸려요.", "토·일·공휴일엔 <b>도니치 에코킷푸(¥620)<\/b>로 시내 지하철·버스를 하루 종일 탈 수 있어요. 11/21~23 모두 쓸 수 있어요(메이테츠 공항선은 제외).", "<b>같은 호텔도 예약 사이트마다 가격이 달라요.<\/b> Google 호텔에서 호텔을 누르고 「가격」 탭에서 사이트별로 비교해 보세요.", "사카에·후시미 목록은 두 동네 검색 결과를 합친 거예요. 두 곳은 지하철로 한 정거장이에요.", "<b>무료 취소 요금으로 먼저 잡아 두고<\/b>, 가격이 내려가면 다시 예약하는 방법이 안전해요."], "airlines": [{"name": "진에어", "url": "https://www.jinair.com", "note": "최저가 왕복"}, {"name": "제주항공", "url": "https://www.jejuair.net/ko/main/base/index.do", "note": "오후 2:50 출발"}, {"name": "아시아나항공", "url": "https://flyasiana.com", "note": "수하물 포함"}, {"name": "대한항공", "url": "https://www.koreanair.com", "note": "수하물 포함"}], "mapCenter": [35.16, 136.905], "mapZoom": 13, "other": {"label": "도쿄 11/27~30 비교판", "href": "../"}, "departDate": "2026-11-21", "prediction": {"text": "카약은 50일 안에 약 6.8만 원 오를 것으로 예측했어요", "rising": true, "asOf": "2026-09-24", "google": "보통"}, "targets": {"flight": 280000, "hotel": 100000}, "siblings": [{"label": "도쿄 11/27~30 비교판", "href": "../", "total": 710749}]}</script>
 <script id="trip-costs" type="application/json">{"checkedAt": "2026-09-24", "fx": {"krwPerJpy": 8.6459, "asOf": "2026-09-23"}, "baggage": {"진에어": {"included": true, "oneWayKrw": 0, "sourceType": "secondary"}, "제주항공": {"included": false, "oneWayKrw": 40000, "sourceType": "official"}, "아시아나항공": {"included": true, "oneWayKrw": 0, "sourceType": "official"}}, "transit": {"meieki": {"oneWayJpy": 1430, "minutes": 29, "route": "메이테츠 뮤스카이 직행", "station": "Meitetsu Nagoya Station"}, "sakae": {"oneWayJpy": 1570, "minutes": 47, "route": "뮤스카이 → 가나야마 환승 지하철", "station": "Sakae Station (Nagoya)"}, "kanayama": {"oneWayJpy": 1360, "minutes": 24, "route": "메이테츠 뮤스카이 직행", "station": "Kanayama Station (Nagoya)"}}, "places": [{"kind": "station", "name": "Meitetsu Nagoya Station", "label": "메이테츠 나고야역 (뮤스카이)", "lat": 35.16942, "lng": 136.88394}, {"kind": "station", "name": "JR Nagoya Station", "label": "JR 나고야역", "lat": 35.17073, "lng": 136.88184}, {"kind": "station", "name": "Sakae Station (Nagoya)", "label": "사카에역", "lat": 35.16939, "lng": 136.90861}, {"kind": "station", "name": "Fushimi Station (Nagoya)", "label": "후시미역", "lat": 35.16923, "lng": 136.89735}, {"kind": "station", "name": "Kanayama Station (Nagoya)", "label": "가나야마역 (뮤스카이)", "lat": 35.14303, "lng": 136.90087}, {"kind": "station", "name": "Nagoya Castle", "label": "나고야성", "lat": 35.1844, "lng": 136.9001}, {"kind": "station", "name": "Osu Kannon", "label": "오스 관음", "lat": 35.15967, "lng": 136.89931}, {"kind": "station", "name": "Oasis 21", "label": "오아시스21", "lat": 35.17085, "lng": 136.90953}, {"kind": "hotel", "name": "Sanco Inn Nagoya Shinkansen-guchi Annex", "label": "산코 인 나고야 신칸센-구치 애넥스", "match": ["산코 인 나고야 신칸센-구치 애넥스"], "lat": 35.16965, "lng": 136.87997}, {"kind": "hotel", "name": "Sanco Inn Grande Nagoya -Hotel & Spa-", "label": "Sanco Inn Grande Nagoya - HOTEL & SPA -", "match": ["Sanco Inn Grande Nagoya - HOTEL & SPA -"], "lat": 35.17243, "lng": 136.88888}, {"kind": "hotel", "name": "Sotetsu Fresa Inn Nagoya Station Shinkansen-guchi", "label": "소테츠 프레사 인 나고야역 신칸센구치", "match": ["소테츠 프레사 인 나고야역 신칸센구치"], "lat": 35.16786, "lng": 136.87991}, {"kind": "hotel", "name": "APA Hotel Nagoya Ekimae Kita", "label": "APA Hotel Nagoya Ekimae Kita", "match": ["APA Hotel Nagoya Ekimae Kita"], "lat": 35.17299, "lng": 136.87903}, {"kind": "hotel", "name": "Hotel Actel Nagoya Nishiki", "label": "호텔 액텔 나고야 니시키", "match": ["호텔 액텔 나고야 니시키"], "lat": 35.17016, "lng": 136.90571}, {"kind": "hotel", "name": "Prince Smart Inn Nagoya Sakae", "label": "프린스 스마트 인 나고야 사카에", "match": ["프린스 스마트 인 나고야 사카에"], "lat": 35.17085, "lng": 136.9}, {"kind": "hotel", "name": "Richmond Hotel Nagoya Nayabashi", "label": "리치몬드호텔 나고야 나야바시", "match": ["리치몬드호텔 나고야 나야바시"], "lat": 35.16764, "lng": 136.89287}, {"kind": "hotel", "name": "Access by Loisir Hotel Nagoya", "label": "액세스 바이 르와지르 호텔 나고야", "match": ["액세스 바이 르와지르 호텔 나고야"], "lat": 35.17219, "lng": 136.91131}, {"kind": "hotel", "name": "KOKO Hotel Nagoya Sakae South", "label": "코코 호텔 나고야 사카에 사우스", "match": ["코코 호텔 나고야 사카에 사우스"], "lat": 35.16609, "lng": 136.90413}, {"kind": "hotel", "name": "Washington Hotel R&B Nagoya Ekimae", "label": "워싱턴R&B호텔나고야에키마에", "match": ["워싱턴R&B호텔나고야에키마에"], "lat": 35.1665, "lng": 136.88686}, {"kind": "hotel", "name": "Travelodge Nagoya Sakae", "label": "트래블롯지 나고야 사카에", "match": ["트래블롯지 나고야 사카에"], "lat": 35.17245, "lng": 136.90229}, {"kind": "hotel", "name": "Nagoya Kanayama Hotel", "label": "나고야 카나야마 호텔", "match": ["나고야 카나야마 호텔"], "lat": 35.14342, "lng": 136.90301}]}</script>
-<script id="trip-data" type="application/json">{"trip": "nagoya", "updatedAt": "2026-09-25 11:30", "hotelCheckedAt": "2026-09-25 11:41", "flights": [{"key": "kayak", "site": "카약", "price": 299000, "out": "진에어 15:45→17:30 NGO", "ret": "진에어 18:30→20:55", "url": "https://www.kayak.co.kr/flights/ICN-NGO/2026-11-21/2026-11-24?sort=price_a"}, {"key": "skyscanner", "site": "스카이스캐너", "price": 300500, "out": "진에어 15:45→17:30 NGO", "ret": "진에어 18:30→20:55", "url": "https://www.skyscanner.co.kr/transport/flights/icn/ngo/261121/261124/?adultsv2=1&cabinclass=economy&rtn=1&sortby=cheapest"}, {"key": "trip", "site": "트립닷컴", "price": 306600, "out": "진에어 15:45→17:30 NGO · 위탁 수하물 포함", "ret": "", "url": "https://kr.trip.com/flights/showfarefirst?dcity=sel&acity=ngo&ddate=2026-11-21&rdate=2026-11-24&triptype=rt&class=y&quantity=1&searchboxarg=t&nonstoponly=off&locale=ko-KR&curr=KRW"}, {"key": "google", "site": "Google 항공편", "price": 312700, "out": "진에어 15:45→17:30 NGO", "ret": "", "url": "https://www.google.com/travel/flights?q=Flights%20from%20ICN%20to%20NGO%20on%202026-11-21%20through%202026-11-24&curr=KRW&hl=ko&gl=KR"}], "history": {"google": [{"date": "2026-09-24", "price": 312500}, {"date": "2026-09-25", "price": 312700}], "kayak": [{"date": "2026-09-24", "price": 298800}, {"date": "2026-09-25", "price": 299000}], "skyscanner": [{"date": "2026-09-24", "price": 292000}, {"date": "2026-09-25", "price": 300500}], "trip": [{"date": "2026-09-24", "price": 306400}, {"date": "2026-09-25", "price": 306600}]}, "hotelHistory": [{"date": "2026-09-24", "min1": 104438}, {"date": "2026-09-25", "min1": 101870}], "areas": [{"id": "meieki", "name": "나고야역 · 메이에키", "mins": 28, "line": "메이테츠 뮤스카이 직행", "tag": "ok", "tagText": "추천", "exclude": "", "desc": "공항 특급 뮤스카이가 바로 서고, 신칸센·JR·지하철이 다 모여 있어 당일치기(교토·기후·이누야마)에도 편해요. 첫날 저녁 도착·마지막 날 저녁 출발 일정에 무난해요.", "url": "https://www.google.com/travel/search?q=%EB%82%98%EA%B3%A0%EC%95%BC%EC%97%AD%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "hotels": [{"name": "워싱턴R&B호텔나고야에키마에", "price": 111476, "rating": 4.1, "reviews": 526, "star": 3, "greatLocation": true}, {"name": "R&B Hotel Nagoya Shinkansenguchi", "price": 115488, "rating": 4.1, "reviews": 567, "star": 3, "greatLocation": true}, {"name": "스파호텔 나고야역앞", "price": 134975, "rating": 4, "reviews": 888, "star": 3, "greatLocation": true}, {"name": "컴포트 호텔 나고야 메이에키 미나미", "price": 138477, "rating": 4.3, "reviews": 649, "star": 3, "greatLocation": true}], "urls": ["https://www.google.com/travel/search?q=%EB%82%98%EA%B3%A0%EC%95%BC%EC%97%AD%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW"]}, {"id": "sakae", "name": "사카에 · 후시미", "mins": null, "line": "공항→가나야마·나고야 환승 지하철", "tag": "ok", "tagText": "추천 · 번화가", "exclude": "에키마에|Ekimae|나고야역|Nagoya Station|가나야마|Kanayama", "desc": "나고야 번화가예요. 오아시스21·오스 상점가·백화점이 걸어서 가깝고 밤에 먹고 놀기 좋아요. 공항은 한 번 갈아타야 해요.", "url": "https://www.google.com/travel/search?q=%EC%82%AC%EC%B9%B4%EC%97%90%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "hotels": [{"name": "코코 호텔 나고야 사카에 사우스", "price": 101870, "rating": 4.1, "reviews": 710, "star": 3, "greatLocation": false}, {"name": "APA Hotel Nagoya Fushimi Ekikita", "price": 114474, "rating": 4.1, "reviews": 629, "star": 3, "greatLocation": false}, {"name": "트래블롯지 나고야 사카에", "price": 114909, "rating": 4.2, "reviews": 758, "star": 3, "greatLocation": true}, {"name": "쿠레타케-인 프리미엄 나고야 나야바시", "price": 117001, "rating": 4, "reviews": 968, "star": 4, "greatLocation": false}], "urls": ["https://www.google.com/travel/search?q=%EC%82%AC%EC%B9%B4%EC%97%90%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "https://www.google.com/travel/search?q=%ED%9B%84%EC%8B%9C%EB%AF%B8%EC%97%AD%20%EB%82%98%EA%B3%A0%EC%95%BC%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW"]}, {"id": "kanayama", "name": "가나야마", "mins": 24, "line": "메이테츠 뮤스카이 직행", "tag": "", "tagText": "", "exclude": "에키마에|Ekimae|사카에|Sakae|나야바시|Nayabashi|메이에키|Meieki|후시미|Fushimi", "desc": "뮤스카이가 서는 환승역이라 공항에서 가장 가까운 시내예요. 번화하진 않지만 숙소가 싸요. 조건(3성급·평점 4.0·리뷰 100개 이상)에 맞는 호텔은 많지 않아요.", "url": "https://www.google.com/travel/search?q=%EA%B0%80%EB%82%98%EC%95%BC%EB%A7%88%EC%97%AD%20%EB%82%98%EA%B3%A0%EC%95%BC%20%EC%88%99%EC%86%8C&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "hotels": [{"name": "N 호텔", "price": 136695, "rating": 4.3, "reviews": 291, "star": 3, "greatLocation": false}, {"name": "Comfort Hotel Nagoya Kanayama", "price": 152112, "rating": 4.1, "reviews": 632, "star": 3, "greatLocation": false}, {"name": "Minn STATION Ai Nagoya", "price": 280611, "rating": 4.6, "reviews": 124, "star": 4, "greatLocation": false}, {"name": "ANA 크라운 플라자 호텔 그랜드 코트 나고야", "price": 318164, "rating": 4.1, "reviews": 4000, "star": 4, "greatLocation": false}], "urls": ["https://www.google.com/travel/search?q=%EA%B0%80%EB%82%98%EC%95%BC%EB%A7%88%EC%97%AD%20%EB%82%98%EA%B3%A0%EC%95%BC%20%EC%88%99%EC%86%8C&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW"]}]}</script>
+<script id="trip-data" type="application/json">{"trip": "nagoya", "updatedAt": "2026-09-25 11:30", "hotelCheckedAt": "2026-09-25 11:41", "flights": [{"key": "kayak", "site": "카약", "price": 299000, "out": "진에어 15:45→17:30 NGO", "ret": "진에어 18:30→20:55", "url": "https://www.kayak.co.kr/flights/ICN-NGO/2026-11-21/2026-11-24?sort=price_a"}, {"key": "skyscanner", "site": "스카이스캐너", "price": 300500, "out": "진에어 15:45→17:30 NGO", "ret": "진에어 18:30→20:55", "url": "https://www.skyscanner.co.kr/transport/flights/icn/ngo/261121/261124/?adultsv2=1&cabinclass=economy&rtn=1&sortby=cheapest"}, {"key": "trip", "site": "트립닷컴", "price": 306600, "out": "진에어 15:45→17:30 NGO · 위탁 수하물 포함", "ret": "", "url": "https://kr.trip.com/flights/showfarefirst?dcity=sel&acity=ngo&ddate=2026-11-21&rdate=2026-11-24&triptype=rt&class=y&quantity=1&searchboxarg=t&nonstoponly=off&locale=ko-KR&curr=KRW"}, {"key": "google", "site": "Google 항공편", "price": 312700, "out": "진에어 15:45→17:30 NGO", "ret": "", "url": "https://www.google.com/travel/flights?q=Flights%20from%20ICN%20to%20NGO%20on%202026-11-21%20through%202026-11-24&curr=KRW&hl=ko&gl=KR"}], "history": {"google": [{"date": "2026-09-24", "price": 312500}, {"date": "2026-09-25", "price": 312700}], "kayak": [{"date": "2026-09-24", "price": 298800}, {"date": "2026-09-25", "price": 299000}], "skyscanner": [{"date": "2026-09-24", "price": 292000}, {"date": "2026-09-25", "price": 300500}], "trip": [{"date": "2026-09-24", "price": 306400}, {"date": "2026-09-25", "price": 306600}]}, "hotelHistory": [{"date": "2026-09-24", "min1": 104438}, {"date": "2026-09-25", "min1": 101870}], "areas": [{"id": "meieki", "name": "나고야역 · 메이에키", "mins": 28, "line": "메이테츠 뮤스카이 직행", "tag": "ok", "tagText": "추천", "exclude": "", "desc": "공항 특급 뮤스카이가 바로 서고, 신칸센·JR·지하철이 다 모여 있어 당일치기(교토·기후·이누야마)에도 편해요. 첫날 저녁 도착·마지막 날 저녁 출발 일정에 무난해요.", "url": "https://www.google.com/travel/search?q=%EB%82%98%EA%B3%A0%EC%95%BC%EC%97%AD%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "hotels": [{"name": "워싱턴R&B호텔나고야에키마에", "price": 111476, "rating": 4.1, "reviews": 526, "star": 3, "greatLocation": true}, {"name": "R&B Hotel Nagoya Shinkansenguchi", "price": 115488, "rating": 4.1, "reviews": 567, "star": 3, "greatLocation": true}, {"name": "스파호텔 나고야역앞", "price": 134975, "rating": 4, "reviews": 888, "star": 3, "greatLocation": true}, {"name": "컴포트 호텔 나고야 메이에키 미나미", "price": 138477, "rating": 4.3, "reviews": 649, "star": 3, "greatLocation": true}], "urls": ["https://www.google.com/travel/search?q=%EB%82%98%EA%B3%A0%EC%95%BC%EC%97%AD%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW"], "offers": {"hotel": "Sanco Inn Grande Nagoya - HOTEL & SPA -", "checkedAt": "2026-09-25", "offers": [{"site": "Agoda", "price": 139817}, {"site": "Trip.com", "price": 151702}, {"site": "skyticket", "price": 159004}, {"site": "Booking.com", "price": 166651}]}}, {"id": "sakae", "name": "사카에 · 후시미", "mins": null, "line": "공항→가나야마·나고야 환승 지하철", "tag": "ok", "tagText": "추천 · 번화가", "exclude": "에키마에|Ekimae|나고야역|Nagoya Station|가나야마|Kanayama", "desc": "나고야 번화가예요. 오아시스21·오스 상점가·백화점이 걸어서 가깝고 밤에 먹고 놀기 좋아요. 공항은 한 번 갈아타야 해요.", "url": "https://www.google.com/travel/search?q=%EC%82%AC%EC%B9%B4%EC%97%90%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "hotels": [{"name": "코코 호텔 나고야 사카에 사우스", "price": 101870, "rating": 4.1, "reviews": 710, "star": 3, "greatLocation": false}, {"name": "APA Hotel Nagoya Fushimi Ekikita", "price": 114474, "rating": 4.1, "reviews": 629, "star": 3, "greatLocation": false}, {"name": "트래블롯지 나고야 사카에", "price": 114909, "rating": 4.2, "reviews": 758, "star": 3, "greatLocation": true}, {"name": "쿠레타케-인 프리미엄 나고야 나야바시", "price": 117001, "rating": 4, "reviews": 968, "star": 4, "greatLocation": false}], "urls": ["https://www.google.com/travel/search?q=%EC%82%AC%EC%B9%B4%EC%97%90%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "https://www.google.com/travel/search?q=%ED%9B%84%EC%8B%9C%EB%AF%B8%EC%97%AD%20%EB%82%98%EA%B3%A0%EC%95%BC%20%ED%98%B8%ED%85%94&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW"], "offers": {"hotel": "코코 호텔 나고야 사카에 사우스", "checkedAt": "2026-09-25", "offers": [{"site": "kr.bluepillow.com", "price": 105499}, {"site": "Trip.com", "price": 115920}, {"site": "라쿠텐 트래블", "price": 122626}, {"site": "Relux", "price": 129435}]}}, {"id": "kanayama", "name": "가나야마", "mins": 24, "line": "메이테츠 뮤스카이 직행", "tag": "", "tagText": "", "exclude": "에키마에|Ekimae|사카에|Sakae|나야바시|Nayabashi|메이에키|Meieki|후시미|Fushimi", "desc": "뮤스카이가 서는 환승역이라 공항에서 가장 가까운 시내예요. 번화하진 않지만 숙소가 싸요. 조건(3성급·평점 4.0·리뷰 100개 이상)에 맞는 호텔은 많지 않아요.", "url": "https://www.google.com/travel/search?q=%EA%B0%80%EB%82%98%EC%95%BC%EB%A7%88%EC%97%AD%20%EB%82%98%EA%B3%A0%EC%95%BC%20%EC%88%99%EC%86%8C&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW", "hotels": [{"name": "N 호텔", "price": 136695, "rating": 4.3, "reviews": 291, "star": 3, "greatLocation": false}, {"name": "Comfort Hotel Nagoya Kanayama", "price": 152112, "rating": 4.1, "reviews": 632, "star": 3, "greatLocation": false}, {"name": "Minn STATION Ai Nagoya", "price": 280611, "rating": 4.6, "reviews": 124, "star": 4, "greatLocation": false}, {"name": "ANA 크라운 플라자 호텔 그랜드 코트 나고야", "price": 318164, "rating": 4.1, "reviews": 4000, "star": 4, "greatLocation": false}], "urls": ["https://www.google.com/travel/search?q=%EA%B0%80%EB%82%98%EC%95%BC%EB%A7%88%EC%97%AD%20%EB%82%98%EA%B3%A0%EC%95%BC%20%EC%88%99%EC%86%8C&ts=CAESBgoCCAMQARocEhoSFAoHCOoPEAsYFRIHCOoPEAsYGBgDMgIIASoLCgU6A0tSVxoAKAg&qs=CAEgACgAOA1IAA&ap=MAE&hl=ko&gl=KR&curr=KRW"]}]}</script>
 
 <div id="intro" hidden role="dialog" aria-label="인사">
   <div class="intro-box">
@@ -282,10 +378,20 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
   </div>
 </div>
 
-<div class="wrap">
-  <nav class="topnav" id="topnav"></nav>
+<header class="masthead">
+  <div class="wrap mast-row">
+    <a class="brand" href="#top" id="brand"></a>
+    <a class="sibling" id="sibling" hidden></a>
+  </div>
+  <nav class="secnav" aria-label="섹션">
+    <div class="wrap secnav-row" id="secnav">
+      <a href="#s-summary">요약</a><a href="#s-verdict">살까 말까</a><a href="#s-flight">항공권</a><a href="#s-hotel">숙소</a><a href="#s-plan" data-opt="plan">일정</a><a href="#s-prep" data-opt="prep">준비</a>
+    </div>
+  </nav>
+</header>
 
-  <section class="ticket" aria-label="여정 요약">
+<main class="wrap" id="top">
+  <section class="ticket" id="s-summary" aria-label="여정 요약">
     <div class="ticket-top"><span id="ticket-top"></span><span id="stamp-date"></span></div>
     <div class="ticket-body">
       <div class="leg">
@@ -315,19 +421,20 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     <label class="check" for="bag"><input type="checkbox" id="bag"> 짐 부쳐요 (위탁 수하물 1개)</label>
   </div>
 
-  <section class="sec" aria-labelledby="h-cheap">
-    <div class="sec-head"><h2 id="h-cheap">얼마면 싼 걸까</h2><span class="when-checked">이 날짜 실제 조회 가격 기준</span></div>
+  <section class="sec" id="s-verdict" aria-labelledby="h-verdict">
+    <div class="sec-head"><h2 id="h-verdict">살까, 기다릴까</h2><span class="when-checked" id="verdict-sub"></span></div>
+    <div class="board" id="board"></div>
     <div class="rulers" id="rulers"></div>
   </section>
 
   <section class="sec" aria-labelledby="h-trend">
-    <div class="sec-head"><h2 id="h-trend">가격 흐름</h2><span class="when-checked" id="trend-sub">왕복 항공권 · 사이트별</span></div>
+    <div class="sec-head"><h2 id="h-trend">가격 흐름</h2><span class="when-checked">왕복 항공권 · 사이트별</span></div>
     <div class="chart-wrap" id="chart"></div>
     <div class="chart-legend" id="chart-legend"></div>
     <p class="small" id="trend-note" style="margin-top:8px"></p>
   </section>
 
-  <section class="sec" aria-labelledby="h-flight">
+  <section class="sec" id="s-flight" aria-labelledby="h-flight">
     <div class="sec-head"><h2 id="h-flight">항공권</h2><span class="when-checked" id="flight-sub"></span></div>
     <div class="tt-scroll">
       <table class="tt" id="flight-table">
@@ -338,16 +445,26 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     <ul class="notes" id="flight-notes"></ul>
   </section>
 
-  <section class="sec" aria-labelledby="h-hotel">
+  <section class="sec" id="s-hotel" aria-labelledby="h-hotel">
     <div class="sec-head"><h2 id="h-hotel">어디서 잘까</h2><span class="when-checked" id="hotel-sub"></span></div>
     <p class="lead" id="hotel-lead"></p>
     <div id="areas"></div>
     <div id="map-sec" hidden>
-      <h3 style="font-size:20px;margin-top:26px">지도</h3>
+      <h3 class="sub-h">지도</h3>
       <div id="map" role="region" aria-label="숙소와 역 지도"></div>
       <p class="map-note">빨간 점은 역·명소, 초록 점은 목록의 숙소예요. 위치를 못 찾은 숙소는 목록의 「지도」 링크로 확인해 주세요. 지도 © OpenStreetMap</p>
     </div>
     <ul class="notes" id="hotel-tips" style="margin-top:18px"></ul>
+  </section>
+
+  <section class="sec" id="s-plan" aria-labelledby="h-plan" hidden>
+    <div class="sec-head"><h2 id="h-plan">일정 초안</h2><span class="when-checked" id="plan-sub">비행기 시각에 맞춘 동선</span></div>
+    <ol class="days" id="days"></ol>
+  </section>
+
+  <section class="sec" id="s-prep" aria-labelledby="h-prep" hidden>
+    <div class="sec-head"><h2 id="h-prep">떠나기 전에</h2><span class="when-checked" id="prep-sub"></span></div>
+    <div class="prep" id="prep"></div>
   </section>
 
   <section class="sec" aria-labelledby="h-air">
@@ -356,8 +473,8 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     <p class="small" style="margin-top:10px">공식 사이트는 첫 화면으로 열려요. 날짜를 직접 넣어 주세요.</p>
   </section>
 
-  <div class="foot"><span>가격은 조회 시점 기준이고 실제 결제 금액과 다를 수 있어요. 예약·결제는 각 사이트에서 직접 해 주세요.</span><span>매일 오전 9시·밤 9시 갱신</span></div>
-</div>
+  <footer class="foot"><span>가격은 조회 시점 기준이고 실제 결제 금액과 다를 수 있어요. 예약·결제는 각 사이트에서 직접 해 주세요.</span><span>매일 오전 9시·밤 9시 갱신</span></footer>
+</main>
 
 <script>
 (function(){
@@ -374,8 +491,12 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
   try { const s = JSON.parse(localStorage.getItem('trip-ui-' + C.slug) || '{}'); if(s.people === 2 && C.peopleToggle) state.people = 2; if(s.bag) state.bag = true; } catch(e) {}
   const save = () => { try { localStorage.setItem('trip-ui-' + C.slug, JSON.stringify(state)); } catch(e) {} };
 
+  // 머리글 · 다른 여행 카드
+  $('brand').textContent = C.title;
+  const sib = (C.siblings || [])[0];
+  if(sib){ const a = $('sibling'); a.href = sib.href; a.hidden = false; a.append(el('span', 'sib-label', sib.label), el('b', 'sib-total', sib.total ? '1인 약 ' + Math.round(sib.total / 10000) + '만 원' : ''), el('span', 'sib-go', '→')); }
+
   // 고정 텍스트
-  if(C.other){ $('topnav').append(el('span', '', C.title), (() => { const a = el('a', '', C.other.label + ' →'); a.href = C.other.href; return a; })()); }
   $('ticket-top').textContent = C.ticketTop;
   $('o-code').textContent = C.origin.code; $('o-name').textContent = C.origin.name;
   $('d-code').textContent = C.dest.code; $('d-name').textContent = C.dest.name;
@@ -386,7 +507,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
   (C.airlines || []).forEach(a => { const li = el('li'); const l = el('a', '', a.name); l.href = a.url; li.appendChild(l); if(a.note) li.appendChild(el('span', '', a.note)); $('airlines').appendChild(li); });
   if(C.peopleToggle) $('people').hidden = false;
 
-  // 탑승객 사진과 첫 화면 인사 — 인사는 이 탭에서 처음 열 때 한 번만, 누르면 바로 닫힌다
+  // 탑승객 사진과 첫 화면 인사
   const P = C.passenger;
   if(P){
     const pi = $('pax-img'); pi.alt = '탑승객 ' + P.name; pi.onerror = () => { $('pax').hidden = true; }; pi.src = P.photo;
@@ -396,8 +517,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
       const box = $('intro'); const img = $('intro-img');
       img.src = P.intro; $('intro-line').textContent = P.introLine; $('intro-sub').textContent = P.introSub;
       const close = () => { box.classList.add('out'); setTimeout(() => { box.hidden = true; }, 500); try { sessionStorage.setItem('intro-' + C.slug, '1'); } catch(e) {} };
-      img.onerror = close;
-      box.hidden = false; box.addEventListener('click', close); setTimeout(close, 2200);
+      img.onerror = close; box.hidden = false; box.addEventListener('click', close); setTimeout(close, 2200);
     }
   }
 
@@ -414,45 +534,30 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
   const best = flights[0] || null;
   const airlineOf = s => (s || '').split(' ')[0];
 
-  // 비용 계산 (null 은 「확인 못 함」으로 남긴다 — 0 으로 치지 않는다)
+  // 비용 (null 은 「확인 중」 — 0 으로 치지 않는다)
   const fx = K.fx && typeof K.fx.krwPerJpy === 'number' ? K.fx.krwPerJpy : null;
   function bagCost(){
-    if(!state.bag || !best) return { v: 0, known: true, label: '' };
+    if(!state.bag || !best) return { v: 0, known: true };
     const legs = [airlineOf(best.out), airlineOf(best.ret) || airlineOf(best.out)];
     let v = 0;
-    for(const a of legs){
-      const b = (K.baggage || {})[a];
-      if(!b) return { v: null, known: false, label: a + ' 수하물 요금 확인 중' };
-      if(b.included) continue;
-      if(typeof b.oneWayKrw !== 'number') return { v: null, known: false, label: a + ' 수하물 요금 확인 중' };
-      v += b.oneWayKrw;
-    }
-    return { v, known: true, label: '' };
+    for(const a of legs){ const b = (K.baggage || {})[a]; if(!b) return { v: null, known: false }; if(b.included) continue; if(typeof b.oneWayKrw !== 'number') return { v: null, known: false }; v += b.oneWayKrw; }
+    return { v, known: true };
   }
-  function transitCost(areaId){
-    const t = (K.transit || {})[areaId];
-    if(!t || typeof t.oneWayJpy !== 'number' || fx === null) return null;
-    return Math.round(t.oneWayJpy * 2 * fx);
-  }
-  // 숙소 → 공항열차 타는 역 도보 시간(직선거리 × 1.25 ÷ 분당 80m, 대략값)
+  function transitCost(areaId){ const t = (K.transit || {})[areaId]; if(!t || typeof t.oneWayJpy !== 'number' || fx === null) return null; return Math.round(t.oneWayJpy * 2 * fx); }
   const places = (K.places || []).filter(p => typeof p.lat === 'number');
   function walkMin(hotelName, stationName){
     const h = places.find(p => p.kind === 'hotel' && (p.match || []).includes(hotelName));
     const s = places.find(p => p.name === stationName);
     if(!h || !s) return null;
     walkMin.label = (s.label || s.name).replace(/\s*\(.*\)/, '');
-    const R = 6371000, r = x => x * Math.PI / 180;
-    const dLat = r(s.lat - h.lat), dLng = r(s.lng - h.lng);
+    const R = 6371000, r = x => x * Math.PI / 180, dLat = r(s.lat - h.lat), dLng = r(s.lng - h.lng);
     const a = Math.sin(dLat / 2) ** 2 + Math.cos(r(h.lat)) * Math.cos(r(s.lat)) * Math.sin(dLng / 2) ** 2;
     const m = 2 * R * Math.asin(Math.sqrt(a));
     return m > 3000 ? null : Math.max(1, Math.round(m * 1.25 / 80));
   }
-  function hotelList(a){ return state.people === 2 ? (a.hotels2 || []) : (a.hotels || []); }
-  function hotelPP(price){ return state.people === 2 ? price / 2 : price; }
-
-  // 숙소 목록
+  const hotelList = a => state.people === 2 ? (a.hotels2 || []) : (a.hotels || []);
+  const hotelPP = p => state.people === 2 ? p / 2 : p;
   const areas = (D.areas || []).map(a => ({...a}));
-  // 숙소 + 공항 왕복 교통비가 가장 싼 동네. 교통비를 모르는 동네가 하나라도 있으면 숙소값만으로 비교한다.
   function cheapestArea(){
     const cand = areas.map(a => { const l = hotelList(a).filter(h => typeof h.price === 'number'); return l.length ? { a, p: Math.min(...l.map(h => h.price)), tr: transitCost(a.id) } : null; }).filter(Boolean);
     const withTransit = cand.length && cand.every(c => c.tr !== null);
@@ -460,6 +565,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     cand.forEach(c => { const cost = hotelPP(c.p) * nights + (withTransit ? c.tr : 0); if(!m || cost < m.cost) m = { ...c, cost, withTransit }; });
     return m;
   }
+
   function renderAreas(){
     const box = $('areas'); box.textContent = '';
     const cm = cheapestArea();
@@ -476,15 +582,13 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
       mb.appendChild(el('b', '', typeof mins === 'number' ? String(mins) : '–'));
       mb.appendChild(el('span', '', (typeof mins === 'number' ? '분 · ' : '') + (t.route || a.line || '')));
       top.append(h3, mb);
-      art.append(top, el('p', '', a.desc));
+      art.append(top, el('p', 'desc', a.desc));
       if(list.length){
-        const hp = hotelPP(list[0].price) * nights;
-        const tr = transitCost(a.id);
+        const hp = hotelPP(list[0].price) * nights, tr = transitCost(a.id);
         const line = el('p', 'total');
-        line.append('이 동네 최저로 묵으면 1인 ');
-        line.appendChild(el('b', '', won(hp)));
+        line.append('이 동네 최저로 묵으면 1인 '); line.appendChild(el('b', '', won(hp)));
         line.append(' (숙소 ' + nights + '박' + (state.people === 2 ? ', 2인 1실 반값' : '') + ')');
-        if(tr !== null){ line.append(' + 공항 왕복 교통 '); line.appendChild(el('b', '', won(tr))); line.append(' = '); line.appendChild(el('b', '', won(hp + tr))); }
+        if(tr !== null){ line.append(' + 공항 왕복 '); line.appendChild(el('b', '', won(tr))); line.append(' = '); line.appendChild(el('b', 'sum', won(hp + tr))); }
         else line.append(' · 공항 교통비 확인 중');
         art.appendChild(line);
         const wrap = el('div', 'tt-scroll'); const tbl = el('table', 'tt hotels');
@@ -505,6 +609,19 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
       } else {
         art.appendChild(el('p', 'total', state.people === 2 ? '2인 1실 가격은 아직 조회 전이에요.' : '조건에 맞는 숙소를 찾지 못했어요.'));
       }
+      // 예약 사이트별 가격 (1인, 대표 숙소 1곳)
+      const o = a.offers;
+      if(o && (o.offers || []).length && state.people === 1){
+        const box2 = el('div', 'offers');
+        const head = el('p', 'offers-h'); head.append(el('b', '', o.hotel), el('span', '', ' · 예약 사이트별 1박 (' + fmt(o.checkedAt) + ')'));
+        box2.appendChild(head);
+        const ul = el('ul', 'offers-list');
+        o.offers.forEach((x, i) => { const li = el('li', i === 0 ? 'win' : ''); li.append(el('span', 'o-site', x.site), el('span', 'o-price', won(x.price))); ul.appendChild(li); });
+        box2.appendChild(ul);
+        const gap = o.offers.length > 1 ? (o.offers[o.offers.length - 1].price - o.offers[0].price) * nights : 0;
+        if(gap > 0) box2.appendChild(el('p', 'offers-note', o.offers[0].site + '에서 잡으면 ' + o.offers[o.offers.length - 1].site + '보다 ' + nights + '박에 ' + won(gap) + ' 아껴요.'));
+        art.appendChild(box2);
+      }
       const more = el('a', 'more', a.name.split(' · ')[0] + ' 숙소 더 보기 (날짜 적용됨) →'); more.href = state.people === 2 && a.url2 ? a.url2 : a.url;
       art.appendChild(more);
       box.appendChild(art);
@@ -513,10 +630,9 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     return cm;
   }
 
-  // 요약 총액
   function renderSummary(cm){
     const dl = $('costs'); dl.textContent = '';
-    const add = (k, v, unk) => { dl.append(el('dt', '', k), el('dd', unk ? 'unk' : '', v)); };
+    const add = (k, v, unk) => dl.append(el('dt', '', k), el('dd', unk ? 'unk' : '', v));
     let sum = 0, complete = true;
     if(best){ add('항공 왕복', won(best.price)); sum += best.price; } else { add('항공 왕복', '조회 전', true); complete = false; }
     const bc = bagCost();
@@ -527,33 +643,63 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     dl.append(el('dt', 'sum', complete ? '1인 합계' : '1인 합계 (확인된 것만)'), el('dd', 'sum', won(sum)));
     const tot = $('total'); tot.textContent = String(Math.round(sum / 10000)); tot.appendChild(el('small', '', '만 원' + (complete ? '' : '+')));
     $('fare-cap').textContent = '제일 싸게 가면 · 1인' + (state.people === 2 ? ' (둘이 갈 때)' : '');
-    $('fare-note').textContent = '식비·시내 교통 제외 · 숙소는 3성급·평점 4.0 이상, ' + (cm && cm.withTransit ? '교통비까지 더해 제일 싼 동네' : '제일 싼 동네') + (cm ? '(' + cm.a.name.split(' · ')[0] + ')' : '') + (fx !== null ? ' · 환율 1엔 ' + fx.toFixed(2) + '원' + (K.fx.asOf ? '(' + fmt(K.fx.asOf) + ')' : '') : '');
+    $('fare-note').textContent = '식비·시내 교통 제외 · 숙소는 3성급·평점 4.0 이상, ' + (cm && cm.withTransit ? '교통비까지 더해 제일 싼 동네' : '제일 싼 동네') + (cm ? '(' + cm.a.name.split(' · ')[0] + ')' : '') + (fx !== null ? ' · 환율 1엔 ' + fx.toFixed(2) + '원' : '');
   }
 
-  // 눈금자
-  function ruler(title, sc, now, label){
+  // 살까, 기다릴까 — 근거를 전부 보여 주고 결론은 한 줄로
+  function renderVerdict(){
+    const sc = C.scales.flight, tg = C.targets || {}, pr = C.prediction || {};
+    const days = C.departDate ? Math.round((new Date(C.departDate + 'T00:00:00+09:00') - Date.now()) / 86400000) : null;
+    const g = (D.history && D.history.google || []).slice().sort((a, b) => a.date < b.date ? -1 : 1);
+    const gMin = g.length ? Math.min(...g.map(x => x.price)) : null, gNow = g.length ? g[g.length - 1].price : null;
+    const reasons = [];
+    let score = 0;
+    if(best){
+      if(best.price <= sc.cheap){ score += 2; reasons.push(['ok', '지금 최저가 ' + man(best.price) + '만 원은 이 날짜에 「싼 편」이에요(' + Math.round(sc.cheap / 10000) + '만 이하).']); }
+      else if(best.price <= sc.normal){ score += 1; reasons.push(['mid', '지금 최저가 ' + man(best.price) + '만 원은 「보통」이에요.']); }
+      else reasons.push(['no', '지금 최저가 ' + man(best.price) + '만 원은 「비싼 편」이에요.']);
+      if(tg.flight){ if(best.price <= tg.flight){ score += 2; reasons.push(['ok', '목표가 ' + man(tg.flight) + '만 원에 도달했어요.']); } else reasons.push(['mid', '목표가 ' + man(tg.flight) + '만 원까지 ' + man(best.price - tg.flight) + '만 원 남았어요.']); }
+    }
+    if(pr.text){ if(pr.rising) score += 1; reasons.push([pr.rising ? 'ok' : 'mid', pr.text + (pr.asOf ? '(' + fmt(pr.asOf) + ')' : '') + '.']); }
+    if(pr.google) reasons.push([pr.google === '저렴' ? 'ok' : 'mid', 'Google은 이 날짜 가격을 「' + pr.google + '」으로 보고 있어요.']);
+    if(gNow !== null && g.length > 2){ if(gNow <= gMin){ score += 1; reasons.push(['ok', 'Google 기준 기록 중 최저예요.']); } else reasons.push(['mid', 'Google 기준 기록 최저(' + man(gMin) + '만)보다 ' + man(gNow - gMin) + '만 원 비싸요.']); }
+    if(days !== null){ if(days <= 45){ score += 1; reasons.push(['ok', '출발까지 ' + days + '일 — 이제부터는 오르는 경우가 많아요.']); } else reasons.push(['mid', '출발까지 ' + days + '일 남았어요.']); }
+    const verdict = score >= 4 ? ['go', '지금 예약 추천', '더 기다려도 크게 싸질 가능성이 낮아요.'] : score >= 2 ? ['hold', '지금 사도 괜찮아요', '며칠 더 지켜봐도 되지만, 오르기 시작하면 바로 잡으세요.'] : ['wait', '며칠 더 지켜보기', '아직 비싼 편이라 가격 흐름을 조금 더 보세요.'];
+    const b = $('board'); b.textContent = '';
+    const row = el('div', 'board-row ' + verdict[0]);
+    row.append(el('span', 'board-label', '판정'), el('b', 'board-status', verdict[1]), el('span', 'board-why', verdict[2]));
+    b.appendChild(row);
+    const ul = el('ul', 'reasons'); reasons.forEach(([k, t]) => ul.appendChild(el('li', 'r-' + k, t))); b.appendChild(ul);
+    $('verdict-sub').textContent = '항공권 기준 · 매일 다시 판단해요';
+  }
+
+  // 눈금자 (목표가 점선 포함)
+  function ruler(title, sc, now, label, target){
     const d = el('div', 'ruler'); d.appendChild(el('h3', '', title));
     const span = sc.max - sc.min, pct = v => Math.max(0, Math.min(100, (v - sc.min) / span * 100));
     const s = el('div', 'scale'); s.setAttribute('aria-hidden', 'true');
     const track = el('div', 'track');
     [['z1', pct(sc.cheap)], ['z2', pct(sc.normal) - pct(sc.cheap)], ['z3', 100 - pct(sc.normal)]].forEach(([c, w]) => { const i = el('i', c); i.style.width = w + '%'; track.appendChild(i); });
     s.appendChild(track);
+    if(typeof target === 'number'){ const t = el('span', 'target'); t.style.left = pct(target) + '%'; s.appendChild(t); }
     if(typeof now === 'number'){ const p = el('span', 'pin', label + ' ' + man(now)); p.style.left = Math.max(3, Math.min(97, pct(now))) + '%'; s.appendChild(p); }
     [sc.min, sc.cheap, sc.normal, sc.max].forEach(v => { const t = el('span', 'tick', Math.round(v / 10000) + '만'); t.style.left = pct(v) + '%'; s.appendChild(t); });
     d.appendChild(s);
     const key = el('div', 'key');
-    key.append(el('span', 'k1', Math.round(sc.cheap / 10000) + '만 이하 싸요'), el('span', 'k2', Math.round(sc.cheap / 10000) + '~' + Math.round(sc.normal / 10000) + '만 보통'), el('span', 'k3', Math.round(sc.normal / 10000) + '만 넘으면 비싸요'));
+    key.append(el('span', 'k1', Math.round(sc.cheap / 10000) + '만 이하 싸요'), el('span', 'k2', '~' + Math.round(sc.normal / 10000) + '만 보통'), el('span', 'k3', '그 위는 비싸요'));
+    if(typeof target === 'number') key.appendChild(el('span', 'k4', '목표 ' + man(target) + '만'));
     d.appendChild(key);
     if(sc.note) d.appendChild(el('p', '', sc.note));
     return d;
   }
   function renderRulers(){
     const r = $('rulers'); r.textContent = '';
-    const hmin = (() => { let m = null; areas.forEach(a => (a.hotels || []).forEach(h => { if(typeof h.price === 'number' && (m === null || h.price < m)) m = h.price; })); return m; })();
-    r.append(ruler('항공권 왕복', C.scales.flight, best && best.price, '지금'), ruler('숙소 1박 · 1인 1실 · 평점 4.0 이상', C.scales.hotel, hmin, '최저'));
+    let hmin = null; areas.forEach(a => (a.hotels || []).forEach(h => { if(typeof h.price === 'number' && (hmin === null || h.price < hmin)) hmin = h.price; }));
+    const tg = C.targets || {};
+    r.append(ruler('항공권 왕복', C.scales.flight, best && best.price, '지금', tg.flight), ruler('숙소 1박 · 1인 1실', C.scales.hotel, hmin, '최저', tg.hotel));
   }
 
-  // 가격 흐름 그래프 — 사이트별 선. Google 은 매번 조회하는 기준선이라 굵게.
+  // 가격 흐름
   function renderChart(){
     const H = D.history || {};
     const names = { google: 'Google 항공편', kayak: '카약', skyscanner: '스카이스캐너', trip: '트립닷컴' };
@@ -562,7 +708,8 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     const dates = [...new Set(keys.flatMap(k => H[k].map(p => p.date)))].sort();
     const box = $('chart'); box.textContent = ''; $('chart-legend').textContent = '';
     if(!dates.length){ box.appendChild(el('p', 'small', '아직 기록이 없어요.')); return; }
-    const vals = keys.flatMap(k => H[k].map(p => p.price));
+    const tg = (C.targets || {}).flight;
+    const vals = keys.flatMap(k => H[k].map(p => p.price)).concat(tg ? [tg] : []);
     let lo = Math.min(...vals), hi = Math.max(...vals); const pad = Math.max(10000, (hi - lo) * 0.2);
     lo = Math.floor((lo - pad) / 10000) * 10000; hi = Math.ceil((hi + pad) / 10000) * 10000;
     const W = 720, Hh = 220, L = 52, R = 16, T = 14, B = 30;
@@ -571,28 +718,62 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     let s = '<svg viewBox="0 0 ' + W + ' ' + Hh + '" role="img" aria-label="날짜별 왕복 항공권 최저가">';
     const step = Math.max(10000, Math.ceil((hi - lo) / 4 / 10000) * 10000);
     for(let v = lo; v <= hi; v += step) s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="var(--line)" stroke-width="1"/><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end" font-size="12" fill="var(--muted)">' + Math.round(v / 10000) + '만</text>';
+    if(tg) s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(tg) + '" y2="' + y(tg) + '" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 5"/><text x="' + (W - R) + '" y="' + (y(tg) - 6) + '" text-anchor="end" font-size="12" fill="var(--red)">목표 ' + man(tg) + '만</text>';
     const every = Math.max(1, Math.ceil(dates.length / 7));
     dates.forEach((d, i) => { if(i % every === 0 || i === dates.length - 1) s += '<text x="' + x(d) + '" y="' + (Hh - 8) + '" text-anchor="middle" font-size="12" fill="var(--muted)">' + fmt(d).replace('월 ', '/').replace('일', '') + '</text>'; });
     keys.forEach(k => {
-      const pts = H[k].slice().sort((a, b) => a.date < b.date ? -1 : 1);
-      const w = k === 'google' ? 2.5 : 1.5;
+      const pts = H[k].slice().sort((a, b) => a.date < b.date ? -1 : 1), w = k === 'google' ? 2.5 : 1.5;
       if(pts.length > 1) s += '<polyline fill="none" stroke="' + color[k] + '" stroke-width="' + w + '" stroke-linejoin="round" points="' + pts.map(p => x(p.date) + ',' + y(p.price)).join(' ') + '"/>';
       pts.forEach(p => { s += '<circle cx="' + x(p.date) + '" cy="' + y(p.price) + '" r="' + (k === 'google' ? 4 : 3) + '" fill="' + color[k] + '"><title>' + names[k] + ' ' + fmt(p.date) + ' ' + won(p.price) + '</title></circle>'; });
       const lg = el('span'); const i = el('i'); i.style.borderTopColor = color[k]; lg.append(i, names[k] + ' ' + won(pts[pts.length - 1].price)); $('chart-legend').appendChild(lg);
     });
-    s += '</svg>';
-    box.innerHTML = s;
+    box.innerHTML = s + '</svg>';
     const g = (H.google || []).slice().sort((a, b) => a.date < b.date ? -1 : 1);
     $('trend-note').textContent = g.length > 1
       ? 'Google 기준 전날 대비 ' + (g[g.length - 1].price - g[g.length - 2].price >= 0 ? '▲ ' : '▼ ') + won(Math.abs(g[g.length - 1].price - g[g.length - 2].price)).slice(1) + '원 · 기록 ' + dates.length + '일'
       : '매일 조회할 때마다 점이 하나씩 늘고 선으로 이어져요. 증감은 매번 조회되는 Google 가격으로 비교해요.';
   }
 
+  // 일정 · 준비 (config 에 있을 때만)
+  function renderPlan(){
+    const days = C.itinerary || [];
+    if(!days.length) return;
+    $('s-plan').hidden = false;
+    const ol = $('days');
+    days.forEach(d => {
+      const li = el('li', 'day');
+      const hd = el('div', 'day-h'); hd.append(el('span', 'day-n', d.day), el('b', '', d.title));
+      li.appendChild(hd);
+      const ul = el('ul', 'slots');
+      (d.items || []).forEach(it => { const s = el('li'); s.append(el('span', 'slot-t', it.t || '')); s.appendChild(html('span', 'slot-x', it.x)); ul.appendChild(s); });
+      li.appendChild(ul);
+      if(d.note) li.appendChild(html('p', 'day-note', d.note));
+      ol.appendChild(li);
+    });
+    if(C.itineraryNote) $('plan-sub').textContent = C.itineraryNote;
+  }
+  function renderPrep(){
+    const groups = C.prep || [];
+    if(!groups.length) return;
+    $('s-prep').hidden = false;
+    const box = $('prep');
+    let n = 0;
+    groups.forEach(g => {
+      const card = el('div', 'prep-g');
+      card.appendChild(el('h3', '', g.title));
+      if(g.big) card.appendChild(html('p', 'prep-big', g.big));
+      const ul = el('ul', 'checks2');
+      (g.items || []).forEach(t => { const li = el('li'); const id = 'c-' + C.slug + '-' + (n++); const cb = el('input'); cb.type = 'checkbox'; cb.id = id; try { cb.checked = localStorage.getItem(id) === '1'; } catch(e) {} cb.addEventListener('change', () => { try { localStorage.setItem(id, cb.checked ? '1' : '0'); } catch(e) {} }); const lb = el('label'); lb.htmlFor = id; lb.innerHTML = t; li.append(cb, lb); ul.appendChild(li); });
+      card.appendChild(ul);
+      box.appendChild(card);
+    });
+    if(C.prepNote) $('prep-sub').textContent = C.prepNote;
+  }
+  document.querySelectorAll('#secnav a[data-opt]').forEach(a => { const opt = a.dataset.opt; if((opt === 'plan' && !(C.itinerary || []).length) || (opt === 'prep' && !(C.prep || []).length)) a.remove(); });
+
   // 지도 — 외부 지도 조각을 받을 수 있는 공개 페이지에서만
   function renderMap(){
-    if(!/github\.io$/.test(location.hostname)) return;
-    const places = (K.places || []).filter(p => typeof p.lat === 'number' && typeof p.lng === 'number');
-    if(!places.length) return;
+    if(!/github\.io$/.test(location.hostname) || !places.length) return;
     $('map-sec').hidden = false;
     const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
     const js = document.createElement('script'); js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
@@ -604,8 +785,7 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
       places.forEach(p => {
         const isHotel = p.kind === 'hotel';
         if(isHotel && !(p.match || [p.name]).some(n => listed.has(n))) return;
-        const m = L.circleMarker([p.lat, p.lng], { radius: isHotel ? 7 : 6, color: isHotel ? '#2E6A48' : '#C9362A', weight: 2, fillOpacity: .85 }).addTo(map);
-        m.bindTooltip(p.label || p.name);
+        L.circleMarker([p.lat, p.lng], { radius: isHotel ? 7 : 6, color: isHotel ? '#2E6A48' : '#C9362A', weight: 2, fillOpacity: .85 }).addTo(map).bindTooltip(p.label || p.name);
         pts.push([p.lat, p.lng]);
       });
       if(pts.length > 1) map.fitBounds(pts, { padding: [24, 24] });
@@ -613,12 +793,21 @@ table.tt{width:100%;border-collapse:collapse;min-width:520px}
     document.head.appendChild(js);
   }
 
+  // 섹션 이동 막대 — 보고 있는 섹션 표시
+  (function(){
+    const links = [...document.querySelectorAll('#secnav a')];
+    const secs = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    if(!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }); }, { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach(s => io.observe(s));
+  })();
+
   function renderAll(){ const cm = renderAreas(); renderSummary(cm); renderRulers(); }
   function syncControls(){ $('p1').setAttribute('aria-pressed', state.people === 1); $('p2').setAttribute('aria-pressed', state.people === 2); $('bag').checked = state.bag; }
   $('p1').addEventListener('click', () => { state.people = 1; syncControls(); save(); renderAll(); });
   $('p2').addEventListener('click', () => { state.people = 2; syncControls(); save(); renderAll(); });
   $('bag').addEventListener('change', e => { state.bag = e.target.checked; save(); renderAll(); });
-  syncControls(); renderAll(); renderChart(); renderMap();
+  syncControls(); renderAll(); renderVerdict(); renderChart(); renderPlan(); renderPrep(); renderMap();
   const sd = D.updatedAt || D.hotelCheckedAt; if(sd) $('stamp-date').textContent = fmt(sd.split(' ')[0]) + ' 조회';
 })();
 </script>
