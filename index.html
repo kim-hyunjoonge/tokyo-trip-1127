@@ -360,6 +360,47 @@ main.wrap{padding-top:22px}
   .days,.prep{grid-template-columns:1fr}
 }
 
+/* ═════ 휴대폰 다듬기 v2 ═════ */
+.sib-short{display:none}
+.dock{display:none}
+@media (max-width:600px){
+  body{font-size:15px;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  /* 머리글을 한 줄로: 섹션 메뉴 + 다른 여행 버튼 */
+  .masthead{display:flex;align-items:center;gap:8px}
+  .mast-row{display:contents}
+  .brand{display:none}
+  .secnav{flex:1;min-width:0;order:1}
+  .secnav-row{padding:0;max-width:none}
+  .secnav a{padding:12px 10px 11px;font-size:14px}
+  .sibling{order:2;flex:none;padding:6px 9px;gap:5px}
+  .sibling .sib-label{display:none}
+  .sibling .sib-short{display:inline;font-weight:700;color:var(--ink)}
+  .sibling .sib-total{font-size:13px}
+  .sec{scroll-margin-top:58px}
+  .ticket{scroll-margin-top:62px}
+  main.wrap{padding-top:14px}
+
+  /* 항공권 줄: 「열기」를 가격 밑으로 */
+  #flight-table td.o,#flight-table td.rt{grid-column:1}
+  #flight-table td.lnk{grid-column:2;grid-row:2 / 4;align-self:end;text-align:right;margin:0}
+  #flight-table .go{padding:6px 0 0}
+
+  /* 하단 요약 바 */
+  .dock{display:flex;align-items:center;gap:12px;position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:#111A14;color:#E6EDE5;box-shadow:0 -6px 18px rgba(0,0,0,.18);transform:translateY(110%);transition:transform .25s ease}
+  .dock.show{transform:none}
+  .dock-l{display:flex;flex-direction:column;line-height:1.15}
+  .dock-cap{font-size:11px;opacity:.7;letter-spacing:.06em}
+  .dock-total{font-family:var(--dot);font-weight:400;font-size:21px}
+  .dock-verdict{flex:1;font-size:13px;font-weight:700;text-align:center}
+  .dock-verdict.go{color:#7EE0A2}.dock-verdict.hold{color:#F2C766}.dock-verdict.wait{color:#FF9A8A}
+  .dock-go{color:#E6EDE5;font-size:13px;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:7px 10px;flex:none}
+  .ruler p{max-width:none}
+  .offers{padding:10px 12px}
+  .offers-list{gap:6px 14px}
+  .reasons{padding:12px 14px 14px}
+}
+@media (max-width:600px) and (prefers-reduced-motion:reduce){.dock{transition:none}}
+
 </style>
 
 <script id="trip-config" type="application/json">{"slug": "tokyo", "path": "", "title": "도쿄 11월 여행 비교판", "description": "인천⇄도쿄 11/27~11/30 항공권 사이트별 최저가와 호텔 지역별 가격을 매일 모아 보여 줘요.", "ogLine": "인천 ↔ 도쿄 나리타 · 11.27 금 – 11.30 월 · 3박", "ticketTop": "항공권 + 숙박 3박", "origin": {"code": "ICN", "name": "인천"}, "dest": {"code": "NRT", "name": "도쿄 나리타"}, "when": [["가는 날", "11월 27일 금요일"], ["오는 날", "11월 30일 월요일"], ["숙박", "3박"]], "nights": 3, "peopleToggle": true, "scales": {"flight": {"min": 280000, "max": 360000, "cheap": 300000, "normal": 330000, "note": "직항 대부분이 30~35만 원이에요. Google은 이 가격대를 「저렴」으로 보고, 카약은 50일 안에 약 8만 원 오를 것으로 예측했어요(9월 24일)."}, "hotel": {"min": 100000, "max": 220000, "cheap": 140000, "normal": 180000, "note": "이 주말(금·토, 단풍철)은 평일의 약 3배예요. 같은 우에노 호텔이 9월 평일엔 6만 원대, 이날은 19만 원대였어요."}}, "flightNotes": ["가는 편과 오는 편 항공사가 다른 조합은 <b>표를 두 장 따로 사요.<\/b> 한쪽이 결항돼도 다른 쪽은 보장받지 못해요.", "한 항공사로 왕복하면 진에어가 약 30.4만 원이었어요(카약, 9월 24일). 트립닷컴에선 <b>위탁 수하물 포함<\/b> 진에어가 31.5만 원이었어요.", "하네다로 가면 약 10만 원 더 비싸요. 네이버 항공권은 자동 조회가 안 돼서 <a href=\"https://flight.naver.com/flights/international/ICN-TYO-20261127/TYO-ICN-20261130?adult=1&fareType=Y\">직접 확인<\/a>해 주세요.", "「짐 부쳐요」를 켜면 항공사별 위탁 수하물 1개(15kg 기준, 온라인 사전 구매) 요금을 더해요. 에어서울 4만·ZIPAIR 3.8만·제주항공 4만·피치 3.1만 원(편도), 진에어는 최저 운임에 포함이에요. 진에어는 공식 사이트로 확인하지 못해 기사 기준이라, 예약할 때 다시 봐 주세요."], "hotelLead": "가장 싼 비행기는 <b>금요일 밤 7시 나리타 도착, 월요일 오전 10시 55분 나리타 출발<\/b>이에요. 늦게 들어가고 일찍 나와야 해서 <b>나리타와 한 번에 이어지는 동네<\/b>가 편해요. 오른쪽 큰 숫자는 나리타 공항까지 걸리는 시간이에요.", "hotelTips": ["공항 교통비는 편도 정가로 계산했어요(스카이라이너 ¥2,580, 액세스 특급 ¥1,380~1,420, N'EX ¥3,330). 스카이라이너는 온라인 e-티켓 <b>왕복 ¥4,500<\/b>이라 정가 왕복보다 ¥660 싸요. 표 없이 타면 차내에서 ¥300을 더 내요.", "<b>같은 호텔도 예약 사이트마다 가격이 달라요.<\/b> 우에노 한 호텔은 3박 기준 아고다가 부킹닷컴보다 약 5.7만 원 쌌어요. Google 호텔에서 호텔을 누르고 「가격」 탭에서 비교해 보세요.", "<b>더 아끼려면<\/b> 2성급·캡슐형도 있어요. 사쿠라 호텔 닛포리(2성급, 4.2)는 1박 약 11.5만 원, 우에노 그리드 도쿄(4.1)는 약 7.2만 원이었어요(9월 24일). 개인 욕실이 없거나 방이 좁을 수 있어요.", "<b>무료 취소 요금으로 먼저 잡아 두고<\/b>, 가격이 내려가면 다시 예약하는 방법이 안전해요."], "airlines": [{"name": "에어서울", "url": "https://flyairseoul.com", "note": "최저가 가는 편"}, {"name": "ZIPAIR", "url": "https://www.zipair.net/ko", "note": "최저가 오는 편"}, {"name": "에어부산", "url": "https://www.airbusan.com", "note": "아침 7:35"}, {"name": "진에어", "url": "https://www.jinair.com", "note": "한 항공사 왕복 최저"}, {"name": "제주항공", "url": "https://www.jejuair.net/ko/main/base/index.do", "note": "최저가 달력"}, {"name": "에어프레미아", "url": "https://www.airpremia.com", "note": ""}, {"name": "피치항공", "url": "https://www.flypeach.com/ko", "note": ""}], "mapCenter": [35.705, 139.765], "mapZoom": 12, "other": {"label": "나고야 11/21~24 비교판", "href": "nagoya/"}, "passenger": {"name": "안경원", "photo": "img/kyungwon-id.jpg", "intro": "img/kyungwon-trip.jpg", "introLine": "경원이가 도쿄 최저가 찾는 중", "introSub": "최저가 아니면 안 타요"}, "departDate": "2026-11-27", "prediction": {"text": "카약은 50일 안에 약 8만 원 오를 것으로 예측했어요", "rising": true, "asOf": "2026-09-24", "google": "저렴"}, "targets": {"flight": 280000, "hotel": 130000}, "siblings": [{"label": "나고야 11/21~24 비교판", "href": "nagoya/", "total": 631758}]}</script>
@@ -473,6 +514,8 @@ main.wrap{padding-top:22px}
     <p class="small" style="margin-top:10px">공식 사이트는 첫 화면으로 열려요. 날짜를 직접 넣어 주세요.</p>
   </section>
 
+  <div class="dock" id="dock" aria-hidden="true"><div class="dock-l"><span class="dock-cap">1인 최저</span><b class="dock-total" id="dock-total"></b></div><span class="dock-verdict" id="dock-verdict"></span><a class="dock-go" href="#s-summary">요약 ↑</a></div>
+
   <footer class="foot"><span>가격은 조회 시점 기준이고 실제 결제 금액과 다를 수 있어요. 예약·결제는 각 사이트에서 직접 해 주세요.</span><span>매일 오전 9시·밤 9시 갱신</span></footer>
 </main>
 
@@ -494,7 +537,7 @@ main.wrap{padding-top:22px}
   // 머리글 · 다른 여행 카드
   $('brand').textContent = C.title;
   const sib = (C.siblings || [])[0];
-  if(sib){ const a = $('sibling'); a.href = sib.href; a.hidden = false; a.append(el('span', 'sib-label', sib.label), el('b', 'sib-total', sib.total ? '1인 약 ' + Math.round(sib.total / 10000) + '만 원' : ''), el('span', 'sib-go', '→')); }
+  if(sib){ const a = $('sibling'); a.href = sib.href; a.hidden = false; a.append(el('span', 'sib-label', sib.label), el('span', 'sib-short', sib.label.split(' ')[0]), el('b', 'sib-total', sib.total ? '1인 약 ' + Math.round(sib.total / 10000) + '만 원' : ''), el('span', 'sib-go', '→')); }
 
   // 고정 텍스트
   $('ticket-top').textContent = C.ticketTop;
@@ -642,6 +685,7 @@ main.wrap{padding-top:22px}
     else { add('숙소', '조회 전', true); complete = false; }
     dl.append(el('dt', 'sum', complete ? '1인 합계' : '1인 합계 (확인된 것만)'), el('dd', 'sum', won(sum)));
     const tot = $('total'); tot.textContent = String(Math.round(sum / 10000)); tot.appendChild(el('small', '', '만 원' + (complete ? '' : '+')));
+    $('dock-total').textContent = '약 ' + Math.round(sum / 10000) + '만 원' + (complete ? '' : '+');
     $('fare-cap').textContent = '제일 싸게 가면 · 1인' + (state.people === 2 ? ' (둘이 갈 때)' : '');
     $('fare-note').textContent = '식비·시내 교통 제외 · 숙소는 3성급·평점 4.0 이상, ' + (cm && cm.withTransit ? '교통비까지 더해 제일 싼 동네' : '제일 싼 동네') + (cm ? '(' + cm.a.name.split(' · ')[0] + ')' : '') + (fx !== null ? ' · 환율 1엔 ' + fx.toFixed(2) + '원' : '');
   }
@@ -665,6 +709,7 @@ main.wrap{padding-top:22px}
     if(gNow !== null && g.length > 2){ if(gNow <= gMin){ score += 1; reasons.push(['ok', 'Google 기준 기록 중 최저예요.']); } else reasons.push(['mid', 'Google 기준 기록 최저(' + man(gMin) + '만)보다 ' + man(gNow - gMin) + '만 원 비싸요.']); }
     if(days !== null){ if(days <= 45){ score += 1; reasons.push(['ok', '출발까지 ' + days + '일 — 이제부터는 오르는 경우가 많아요.']); } else reasons.push(['mid', '출발까지 ' + days + '일 남았어요.']); }
     const verdict = score >= 4 ? ['go', '지금 예약 추천', '더 기다려도 크게 싸질 가능성이 낮아요.'] : score >= 2 ? ['hold', '지금 사도 괜찮아요', '며칠 더 지켜봐도 되지만, 오르기 시작하면 바로 잡으세요.'] : ['wait', '며칠 더 지켜보기', '아직 비싼 편이라 가격 흐름을 조금 더 보세요.'];
+    $('dock-verdict').textContent = verdict[1]; $('dock-verdict').className = 'dock-verdict ' + verdict[0];
     const b = $('board'); b.textContent = '';
     const row = el('div', 'board-row ' + verdict[0]);
     row.append(el('span', 'board-label', '판정'), el('b', 'board-status', verdict[1]), el('span', 'board-why', verdict[2]));
@@ -800,6 +845,13 @@ main.wrap{padding-top:22px}
     if(!('IntersectionObserver' in window)) return;
     const io = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }); }, { rootMargin: '-45% 0px -50% 0px' });
     secs.forEach(s => io.observe(s));
+  })();
+
+  // 휴대폰 하단 요약 바 — 맨 위 기차표가 화면에서 벗어나면 나타난다
+  (function(){
+    const dock = $('dock'), tk = $('s-summary');
+    if(!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(es => { es.forEach(e => dock.classList.toggle('show', !e.isIntersecting)); }, { rootMargin: '0px 0px -40% 0px' }).observe(tk);
   })();
 
   function renderAll(){ const cm = renderAreas(); renderSummary(cm); renderRulers(); }

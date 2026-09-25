@@ -360,6 +360,47 @@ main.wrap{padding-top:22px}
   .days,.prep{grid-template-columns:1fr}
 }
 
+/* ═════ 휴대폰 다듬기 v2 ═════ */
+.sib-short{display:none}
+.dock{display:none}
+@media (max-width:600px){
+  body{font-size:15px;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  /* 머리글을 한 줄로: 섹션 메뉴 + 다른 여행 버튼 */
+  .masthead{display:flex;align-items:center;gap:8px}
+  .mast-row{display:contents}
+  .brand{display:none}
+  .secnav{flex:1;min-width:0;order:1}
+  .secnav-row{padding:0;max-width:none}
+  .secnav a{padding:12px 10px 11px;font-size:14px}
+  .sibling{order:2;flex:none;padding:6px 9px;gap:5px}
+  .sibling .sib-label{display:none}
+  .sibling .sib-short{display:inline;font-weight:700;color:var(--ink)}
+  .sibling .sib-total{font-size:13px}
+  .sec{scroll-margin-top:58px}
+  .ticket{scroll-margin-top:62px}
+  main.wrap{padding-top:14px}
+
+  /* 항공권 줄: 「열기」를 가격 밑으로 */
+  #flight-table td.o,#flight-table td.rt{grid-column:1}
+  #flight-table td.lnk{grid-column:2;grid-row:2 / 4;align-self:end;text-align:right;margin:0}
+  #flight-table .go{padding:6px 0 0}
+
+  /* 하단 요약 바 */
+  .dock{display:flex;align-items:center;gap:12px;position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:#111A14;color:#E6EDE5;box-shadow:0 -6px 18px rgba(0,0,0,.18);transform:translateY(110%);transition:transform .25s ease}
+  .dock.show{transform:none}
+  .dock-l{display:flex;flex-direction:column;line-height:1.15}
+  .dock-cap{font-size:11px;opacity:.7;letter-spacing:.06em}
+  .dock-total{font-family:var(--dot);font-weight:400;font-size:21px}
+  .dock-verdict{flex:1;font-size:13px;font-weight:700;text-align:center}
+  .dock-verdict.go{color:#7EE0A2}.dock-verdict.hold{color:#F2C766}.dock-verdict.wait{color:#FF9A8A}
+  .dock-go{color:#E6EDE5;font-size:13px;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:7px 10px;flex:none}
+  .ruler p{max-width:none}
+  .offers{padding:10px 12px}
+  .offers-list{gap:6px 14px}
+  .reasons{padding:12px 14px 14px}
+}
+@media (max-width:600px) and (prefers-reduced-motion:reduce){.dock{transition:none}}
+
 </style>
 
 <script id="trip-config" type="application/json">{"slug": "nagoya", "path": "nagoya/", "title": "나고야 11월 여행 비교판", "description": "인천⇄나고야 11/21~11/24 항공권 사이트별 최저가와 호텔 지역별 가격을 매일 모아 보여 줘요.", "ogLine": "인천 ↔ 나고야 주부 · 11.21 토 – 11.24 화 · 3박", "ticketTop": "항공권 + 숙박 3박 · 성인 1명", "origin": {"code": "ICN", "name": "인천"}, "dest": {"code": "NGO", "name": "나고야 주부"}, "when": [["가는 날", "11월 21일 토요일"], ["오는 날", "11월 24일 화요일"], ["숙박", "3박"]], "nights": 3, "peopleToggle": false, "scales": {"flight": {"min": 270000, "max": 420000, "cheap": 300000, "normal": 360000, "note": "진에어 왕복이 29~30만 원대로 가장 싸고, 다른 직항은 대부분 33~42만 원이에요. Google은 이 날짜 가격을 「보통」으로 보고, 카약은 50일 안에 약 6.8만 원 오를 것으로 예측했어요(9월 24일)."}, "hotel": {"min": 80000, "max": 170000, "cheap": 110000, "normal": 140000, "note": "11월 23일(월)이 일본 공휴일(근로감사의 날)이라 토·일·월 연휴예요. 평점 4.0 이상 3성급 숙소가 1박 10만 원 안팎부터 있지만, 연휴라 평소보다 비쌀 수 있어요."}}, "flightNotes": ["가장 싼 조합은 <b>진에어 왕복<\/b>이라 표 한 장으로 끝나요. 토요일 오후 3:45 인천 출발, 화요일 저녁 6:30 주부 공항 출발이에요.", "진에어 최저 운임(슈퍼로우)은 위탁 수하물 15kg이 포함된 것으로 알려져 있지만, 공식 사이트로는 확인하지 못했어요(기사 기준). 예약할 때 다시 봐 주세요. 제주항공 최저 운임은 수하물이 없어 15kg이 편도 4만 원이에요.", "네이버 항공권은 자동 조회가 안 돼서 <a href=\"https://flight.naver.com/flights/international/ICN-NGO-20261121/NGO-ICN-20261124?adult=1&fareType=Y\">직접 확인<\/a>해 주세요."], "hotelLead": "가장 싼 비행기는 <b>토요일 오후 5시 30분 주부 공항 도착, 화요일 저녁 6시 30분 출발<\/b>이에요. 마지막 날 오후까지 여유가 있어서 공항 거리보다 <b>놀기 좋은 동네<\/b>를 골라도 괜찮아요. 오른쪽 큰 숫자는 주부 공항까지 걸리는 시간이에요.", "hotelTips": ["공항 교통비는 빠른 <b>뮤스카이(운임 + 뮤티켓 ¥450)<\/b> 기준이에요. 나고야역 ¥1,430·가나야마 ¥1,360·사카에 ¥1,570(편도, 2026년 3월 운임표). 뮤티켓 없이 일반 특급을 타면 ¥450 싸고 10분쯤 더 걸려요.", "토·일·공휴일엔 <b>도니치 에코킷푸(¥620)<\/b>로 시내 지하철·버스를 하루 종일 탈 수 있어요. 11/21~23 모두 쓸 수 있어요(메이테츠 공항선은 제외).", "<b>같은 호텔도 예약 사이트마다 가격이 달라요.<\/b> Google 호텔에서 호텔을 누르고 「가격」 탭에서 사이트별로 비교해 보세요.", "사카에·후시미 목록은 두 동네 검색 결과를 합친 거예요. 두 곳은 지하철로 한 정거장이에요.", "<b>무료 취소 요금으로 먼저 잡아 두고<\/b>, 가격이 내려가면 다시 예약하는 방법이 안전해요."], "airlines": [{"name": "진에어", "url": "https://www.jinair.com", "note": "최저가 왕복"}, {"name": "제주항공", "url": "https://www.jejuair.net/ko/main/base/index.do", "note": "오후 2:50 출발"}, {"name": "아시아나항공", "url": "https://flyasiana.com", "note": "수하물 포함"}, {"name": "대한항공", "url": "https://www.koreanair.com", "note": "수하물 포함"}], "mapCenter": [35.16, 136.905], "mapZoom": 13, "other": {"label": "도쿄 11/27~30 비교판", "href": "../"}, "departDate": "2026-11-21", "prediction": {"text": "카약은 50일 안에 약 6.8만 원 오를 것으로 예측했어요", "rising": true, "asOf": "2026-09-24", "google": "보통"}, "targets": {"flight": 280000, "hotel": 100000}, "siblings": [{"label": "도쿄 11/27~30 비교판", "href": "../", "total": 710749}]}</script>
@@ -473,6 +514,8 @@ main.wrap{padding-top:22px}
     <p class="small" style="margin-top:10px">공식 사이트는 첫 화면으로 열려요. 날짜를 직접 넣어 주세요.</p>
   </section>
 
+  <div class="dock" id="dock" aria-hidden="true"><div class="dock-l"><span class="dock-cap">1인 최저</span><b class="dock-total" id="dock-total"></b></div><span class="dock-verdict" id="dock-verdict"></span><a class="dock-go" href="#s-summary">요약 ↑</a></div>
+
   <footer class="foot"><span>가격은 조회 시점 기준이고 실제 결제 금액과 다를 수 있어요. 예약·결제는 각 사이트에서 직접 해 주세요.</span><span>매일 오전 9시·밤 9시 갱신</span></footer>
 </main>
 
@@ -494,7 +537,7 @@ main.wrap{padding-top:22px}
   // 머리글 · 다른 여행 카드
   $('brand').textContent = C.title;
   const sib = (C.siblings || [])[0];
-  if(sib){ const a = $('sibling'); a.href = sib.href; a.hidden = false; a.append(el('span', 'sib-label', sib.label), el('b', 'sib-total', sib.total ? '1인 약 ' + Math.round(sib.total / 10000) + '만 원' : ''), el('span', 'sib-go', '→')); }
+  if(sib){ const a = $('sibling'); a.href = sib.href; a.hidden = false; a.append(el('span', 'sib-label', sib.label), el('span', 'sib-short', sib.label.split(' ')[0]), el('b', 'sib-total', sib.total ? '1인 약 ' + Math.round(sib.total / 10000) + '만 원' : ''), el('span', 'sib-go', '→')); }
 
   // 고정 텍스트
   $('ticket-top').textContent = C.ticketTop;
@@ -642,6 +685,7 @@ main.wrap{padding-top:22px}
     else { add('숙소', '조회 전', true); complete = false; }
     dl.append(el('dt', 'sum', complete ? '1인 합계' : '1인 합계 (확인된 것만)'), el('dd', 'sum', won(sum)));
     const tot = $('total'); tot.textContent = String(Math.round(sum / 10000)); tot.appendChild(el('small', '', '만 원' + (complete ? '' : '+')));
+    $('dock-total').textContent = '약 ' + Math.round(sum / 10000) + '만 원' + (complete ? '' : '+');
     $('fare-cap').textContent = '제일 싸게 가면 · 1인' + (state.people === 2 ? ' (둘이 갈 때)' : '');
     $('fare-note').textContent = '식비·시내 교통 제외 · 숙소는 3성급·평점 4.0 이상, ' + (cm && cm.withTransit ? '교통비까지 더해 제일 싼 동네' : '제일 싼 동네') + (cm ? '(' + cm.a.name.split(' · ')[0] + ')' : '') + (fx !== null ? ' · 환율 1엔 ' + fx.toFixed(2) + '원' : '');
   }
@@ -665,6 +709,7 @@ main.wrap{padding-top:22px}
     if(gNow !== null && g.length > 2){ if(gNow <= gMin){ score += 1; reasons.push(['ok', 'Google 기준 기록 중 최저예요.']); } else reasons.push(['mid', 'Google 기준 기록 최저(' + man(gMin) + '만)보다 ' + man(gNow - gMin) + '만 원 비싸요.']); }
     if(days !== null){ if(days <= 45){ score += 1; reasons.push(['ok', '출발까지 ' + days + '일 — 이제부터는 오르는 경우가 많아요.']); } else reasons.push(['mid', '출발까지 ' + days + '일 남았어요.']); }
     const verdict = score >= 4 ? ['go', '지금 예약 추천', '더 기다려도 크게 싸질 가능성이 낮아요.'] : score >= 2 ? ['hold', '지금 사도 괜찮아요', '며칠 더 지켜봐도 되지만, 오르기 시작하면 바로 잡으세요.'] : ['wait', '며칠 더 지켜보기', '아직 비싼 편이라 가격 흐름을 조금 더 보세요.'];
+    $('dock-verdict').textContent = verdict[1]; $('dock-verdict').className = 'dock-verdict ' + verdict[0];
     const b = $('board'); b.textContent = '';
     const row = el('div', 'board-row ' + verdict[0]);
     row.append(el('span', 'board-label', '판정'), el('b', 'board-status', verdict[1]), el('span', 'board-why', verdict[2]));
@@ -800,6 +845,13 @@ main.wrap{padding-top:22px}
     if(!('IntersectionObserver' in window)) return;
     const io = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }); }, { rootMargin: '-45% 0px -50% 0px' });
     secs.forEach(s => io.observe(s));
+  })();
+
+  // 휴대폰 하단 요약 바 — 맨 위 기차표가 화면에서 벗어나면 나타난다
+  (function(){
+    const dock = $('dock'), tk = $('s-summary');
+    if(!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(es => { es.forEach(e => dock.classList.toggle('show', !e.isIntersecting)); }, { rootMargin: '0px 0px -40% 0px' }).observe(tk);
   })();
 
   function renderAll(){ const cm = renderAreas(); renderSummary(cm); renderRulers(); }
