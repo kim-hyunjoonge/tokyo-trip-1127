@@ -451,6 +451,9 @@ main.wrap{padding-top:22px}
 .picks-total{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:12px;padding:10px 16px;border:1.5px dashed var(--green);background:var(--green-faint)}
 .picks-total b{font-size:26px;color:var(--red)} .picks-total span{font-size:13px;color:var(--muted)}
 @media (max-width:560px){.picks{grid-template-columns:1fr}}
+.pick .pk-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pick .pk-links a{font-size:13px;padding:6px 10px;border:1px solid var(--line);text-decoration:none;border-radius:4px}
+.pick .pk-links a.main{background:var(--green);color:var(--paper);border-color:var(--green);font-weight:700}
 
 </style>
 
@@ -619,7 +622,7 @@ main.wrap{padding-top:22px}
     P.legs.forEach(l => { const v = live[l.leg] || {}; const vs = ['kayak','google'].filter(k => v[k]); let price = l.price, src = l.src;
       if(vs.length){ const ps = vs.map(k => v[k].price); price = ps.length > 1 ? W(Math.min(...ps)) + ' ~ ' + W(Math.max(...ps)) : W(ps[0]); sum[l.leg] = ps;
         src = vs.map(k => (k === 'kayak' ? '카약 ' : 'Google ') + v[k].price.toLocaleString('ko-KR') + (v[k].history.length > 1 ? ' (' + ((d => (d >= 0 ? '+' : '') + d.toLocaleString('ko-KR'))(v[k].price - v[k].history[v[k].history.length - 2].price)) + ')' : '')).join(' · '); }
-      $('picks-legs').appendChild(html('div', 'pick', '<span class="pk-tag">' + l.tag + '</span><b class="pk-air">' + l.airline + '</b><span class="pk-time">' + l.time + '</span><span class="pk-sub">' + l.date + ' · ' + l.route + '</span><span class="pk-price">' + price + '</span><span class="pk-src">' + src + '</span>')); });
+      $('picks-legs').appendChild(html('div', 'pick', '<span class="pk-tag">' + l.tag + '</span><b class="pk-air">' + l.airline + '</b><span class="pk-time">' + l.time + '</span><span class="pk-sub">' + l.date + ' · ' + l.route + '</span><span class="pk-price">' + price + '</span><span class="pk-src">' + src + '</span><span class="pk-links">' + (l.links || []).map((k, i) => '<a class="' + (i ? '' : 'main') + '" href="' + k[1] + '" target="_blank" rel="noopener">' + k[0] + ' ↗</a>').join('') + '</span>')); });
     if(sum.out && sum.ret){ P.total = '약 ' + (Math.round((Math.min(...sum.out) + Math.min(...sum.ret)) / 1000) / 10) + '~' + (Math.round((Math.max(...sum.out) + Math.max(...sum.ret)) / 1000) / 10) + '만 원'; P.sub = '편도 두 장 · ' + (D.picksUpdatedAt || '') + ' 조회'; $('picks-sub').textContent = P.sub; }
     $('picks-total').textContent = P.total; $('picks-total-note').textContent = P.totalNote;
     (P.notes || []).forEach(h => $('picks-notes').appendChild(html('li', '', h)));
